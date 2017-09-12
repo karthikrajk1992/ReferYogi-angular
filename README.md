@@ -23,7 +23,7 @@ mkdir [name of the project folder]
 cd (name of the project folder)
    # STEP-2
 	# Use the following comments to install Yeoman Generator
-******important if not works use sudo before the comment line********
+############ important if not works use sudo before the comment line ###########
 npm install -g yo
 npm install -g generator-angm
 npm install -g bower-installer
