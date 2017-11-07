@@ -26,7 +26,10 @@
 		var vm = this;
 		vm.title = "Hello, angular-app!";
 		vm.version = "1.0.0";
-		vm.listFeatures = homeService.getFeaturesList();
+		homeService.getOffer().then(function(response){
+			vm.offers = response.data;
+			debugger
+		});
 
 	}
 

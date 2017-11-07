@@ -1,15 +1,119 @@
-<div class="container">
-	<br>
-	<div class="well text-center">
-		<h1>{{ vm.title }}</h1>
-		<h3>{{ vm.version }}</h3>
-		<p>This is a template for a simple home screen website. Use it as a starting point to create something more unique.</p>
-		<code>app/modules/home/home.html</code>
-		<hr>
-    <h1>Features</h1>
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="item in vm.listFeatures">{{item.feature}}</li>
-		</ul>
-		<p><a href="http://www.github.com/newaeonweb/generator-angm" class="btn btn-primary" role="button">Learn more »</a></p>
-	</div>
-</div>
+<div class="col-md-4 col-sm-6" ng-repeat="offer in vm.offers track by $index " >
+            <div class="offer-container">
+                <a>
+                  <img alt="offer-image" ng-click="vm.getSlidepopup(offer.attributes.campaign_id)" ng-src="{{offer.attributes.avatar_thumb}}">
+                </a>
+                    <div class="offer-details">
+                        <span class="grisp" ng-click="vm.getSlidepopup(offer.attributes.campaign_id)">
+                            <button ng-click="vm.getSlidepopup(offer.attributes.campaign_id)">
+                                GET CODE!
+                            </button>
+                            <h3>
+                                {{offer.attributes.name | limitTo:27}}
+
+                                {{offer.attributes.name.length > 27 ? '...' : ''}}
+
+                            </h3>
+                            <div class="offer-location">
+                                <b>
+                                    At -
+
+
+          {{offer.attributes.business_name | limitTo:18}}
+
+                                {{offer.attributes.business_name.length > 18 ? '...' : ''}}
+
+
+                                </b>
+                                <span>
+
+                                  {{offer.attributes.place | limitTo:10}}
+
+                                {{offer.attributes.place.length > 10 ? '...' : ''}}
+
+
+
+                                </span>
+                            </div>
+
+                            <!-- <p>{{offer.attributes.caption | limitTo: 140}} {{offer.attributes.caption.length > 140 ? '...' : ''}}</p> -->
+
+                        </span>
+                        <div class="offer-share" style="    margin: 0px;
+    padding: 0px;
+    padding-top: 10px;">
+                            <label>
+                                REFER & EARN
+                            </label>
+                            <ul ng-show=" vm.isReferral()">
+                                <li class="offer-share-max">
+                                    <a data-clipboard-text="{{vm.OfferLink(offer.attributes.seo_url,offer.attributes.tracking_code.general)}}" ngclipboard="" ngclipboard-success="vm.onCopySuccess(e);" data-placement="bottom" title="Copy link" onmouseenter="$(this).tooltip('show')">
+                                    </a>
+                                </li>
+                                <li class="offer-share-fb">
+                                    <a ng-click="vm.SocialShareUpdate(offer.attributes.seo_url,'facebook')" socialshare="" socialshare-provider="facebook" socialshare-url="{{vm.OfferLink(offer.attributes.seo_url,offer.attributes.tracking_code.facebook)}}">
+                                    </a>
+                                </li>
+                                <li class="offer-share-twitter">
+                                    <a
+
+                                     href="whatsapp://send?text={{vm.SeoHelpSocialShare(offer.id,'copy')}}"
+>
+                                    </a>
+                                </li>
+
+                                <li class="offer-share-twitter hidden-md hidden-lg"  style="background: url(share-whatsapp.png) no-repeat;
+    background-size: contain;"  >
+                                    <a
+
+style="    background: none;"
+                                    socialshare="" socialshare-provider="whatsapp"
+
+                                    socialshare-text="{{offer.attributes.caption}}"
+
+                                    socialshare-url="{{vm.OfferLink(offer.attributes.seo_url,offer.attributes.tracking_code.general)}}">
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul ng-click="vm.signupPOP('referral')" ng-hide=" vm.isReferral()">
+
+                                <li class="offer-share-max">
+                                    <a data-placement="bottom" title="Copy link" onmouseenter="$(this).tooltip('show')">
+
+                                    </a>
+                                </li>
+                                <li class="offer-share-fb">
+                                    <a>
+                                    </a>
+                                </li>
+                                <li class="offer-share-twitter">
+                                    <a>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="offer-spini-treashure">
+                        <a class="hoverable" href="javascript://">
+                            <span class="normal">
+                                <i class="fa fa-gift link-icon fagift">
+                                </i>
+                                MY TREASURE
+                            </span>
+                            <span class="hover" ng-show=" {{offer.attributes.treasure_value}}">
+                                <i class="fa fa-gift link-icon fagift">
+                                </i>
+                                Refer & Earn Upto ₹{{offer.attributes.treasure_value}}!
+                            </span>
+                            <span class="hover" ng-hide=" {{offer.attributes.treasure_value}}" ng-click="vm.signupPOP()">
+                                <i class="fa fa-gift link-icon fagift">
+                                </i>
+
+                              Become a Yogi to earn the Treasure !
+
+                            </span>
+                        </a>
+                    </div>
+
+            </div>
+        </div>

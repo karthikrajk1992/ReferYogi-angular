@@ -31,7 +31,8 @@ module.exports = function (config) {
 			'app/modules/home/homeCtrl.js',
 			'app/modules/home/homeRoute.js',
 			'app/modules/home/homeService.js',
-			'app/modules/home/home-test.js'
+			'app/modules/home/home-test.js',
+			'/app/modules/shared/services/ajax.js'
 		],
 
 		// Test results reporter to use
