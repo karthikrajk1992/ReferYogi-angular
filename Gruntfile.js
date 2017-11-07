@@ -46,6 +46,7 @@ module.exports = function (grunt) {
 					'app/modules/**/*Route.js',
 					'app/modules/**/*Ctrl.js',
 					'app/modules/**/*Service.js',
+					'app/modules/shared/**/*.js',
 					'app/modules/**/*Directive.js'
 				],
 				dest: 'app/assets/js/<%= pkg.name %>-appbundle.js'
@@ -121,6 +122,7 @@ module.exports = function (grunt) {
 						'app/**/*Route.js',
 						'app/**/*Ctrl.js',
 						'app/**/*Service.js',
+						'app/modules/shared/**/*.js',
 						'app/**/*Directive.js'
 					]
 				}
@@ -128,6 +130,7 @@ module.exports = function (grunt) {
 			production: {
 				files: {
 					'index.html': [
+						'bower.json',
 						'app/assets/css/**/*.css',
 						'app/assets/js/*.js'
 					]
