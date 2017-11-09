@@ -1,8 +1,8 @@
 {
-  "name": "angular-app",
-  "description": "Modular AngularJS with Angm-generator",
+  "name": "ReferYogi",
+  "description": "ReferYogi",
   "version": "0.0.1",
-  "author": "Kathik",
+  "author": "Spini Tech Team",
   "engines": {
     "node": "0.10.x",
     "npm": "1.4.x"
