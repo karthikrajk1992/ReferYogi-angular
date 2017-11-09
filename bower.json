@@ -1,6 +1,6 @@
 {
-  "name": "angular-app",
-  "description": "Modular AngularJS with Angm-generator",
+  "name": "refer-yogi",
+  "description": "ReferYogi",
   "version": "0.0.1",
 	"install" : {
         "path"  : {
