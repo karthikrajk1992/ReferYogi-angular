@@ -1,3 +1,260 @@
-<div ng-controller="NavBarCtrl as vm">
-    <nav-bar menus="vm.menu" brand="vm.title"></nav-bar>
-</div>
+<header ng-controller="HomeCtrl as vm">
+    <div class="container-fluid">
+        <div class="row hidden-sm hidden-xs">
+            <div class="col-md-12 text-right" style="padding: 5px 0">
+                <ul class="home-top-header">
+                    <li ng-hide="vm.isVendor()">
+                        <a href="#" ng-click="vm.VendorContactUs();" style="color: #e83634">
+                            Become Our Partner
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tel:8148303123">
+                            <i aria-hidden="true" class="fa fa-phone">
+                            </i>
+                            + 91 44-4211 5442
+                        </a>
+                    </li>
+                    <li ng-show="vm.isReferral()">
+                        <a href="#">
+                            Welcome {{vm.user.name}} !
+                        </a>
+                    </li>
+                    <!-- <li ng-hide="vm.isReferral()">
+            <a href="#" ng-click="vm.openLoginPopup('referral')">Login</a>
+          </li>
+          <li ng-hide="vm.isReferral()">
+            <a href="#" ng-click="vm.signupPOP('referral')">Signup</a>
+          </li> -->
+                </ul>
+            </div>
+            <hr>
+            </hr>
+        </div>
+        <div class="row main-header">
+            <div class="col-md-12 nopad">
+                <div class="hidden-md hidden-lg col-sm-3 col-xs-3 nopad">
+                    <div style="margin-top: -7px;">
+                        <button class="navbar-toggle fshow" data-target="#myNavbar" data-toggle="collapse" type="button">
+                            <span class="icon-bar">
+                            </span>
+                            <span class="icon-bar">
+                            </span>
+                            <span class="icon-bar">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-2 col-xs-6 col-sm-6 text-center main-header-logo">
+                    <a href="/" ng-click="vm.refresh()">
+                        <img alt="ReferYogi logo" src="/app/assets/images/header/Logo@2x.png">
+                        </img>
+                    </a>
+                </div>
+                <div class="hidden-md hidden-lg col-sm-3 col-xs-3 ">
+                    <div class="row">
+                        <div class="col-xs-12 nopad">
+                            <div class="col-xs-6 nopad">
+                                <button class="bton-ser" ng-click="vm.MobileToggleSearch()">
+                                    <i class="fa fa-search">
+                                    </i>
+                                </button>
+                            </div>
+                            <div class="col-xs-6 nopad">
+                                <button class="bton-ser" ng-click="vm.MobileLogin()">
+                                    <i class="fa fa-user">
+                                    </i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-header-search hidden-md hidden-lg " id="mobileSearch" style="display: none;">
+                    <input class="search_n" ng-enter="vm.searchBox(vm.search_txt)" ng-model="vm.search_txt" placeholder="Search Offers" type="text">
+                        <button class="search_n" ng-click="vm.searchBox(vm.search_txt)">
+                        </button>
+                    </input>
+                </div>
+                <div class="hidden-md hidden-lg " id="mobileMenu" style="display: none;">
+                    <span>
+                        <div class="col-xs-12" ng-show="vm.isReferral()" style="    padding-top: 20px;">
+                            <b style="color:#ec5d6e">
+                                Your Account
+                            </b>
+                            <br>
+                                <p>
+                                    Access Account & Manage offers
+                                </p>
+                                <br>
+                                    <div class="col-xs-6">
+                                        <button ng-click="vm.goProfile()" style="    float: left; width: 100%;background-image: none;">
+                                            Profile
+                                        </button>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <button ng-click="vm.Logout()" style="
+                        float: left; width: 100%; background-image: none;">
+                                            Logout
+                                        </button>
+                                    </div>
+                                </br>
+                            </br>
+                        </div>
+                        <div class="col-xs-12 text-center" ng-hide="vm.isVendor() || vm.isReferral()" style="    padding-top: 20px;">
+                            <b style="color: #ec5d6e">
+                                ReferYogi
+                            </b>
+                            <br>
+                                <p>
+                                    Access & Become a Yogi!
+                                </p>
+                                <br>
+                                    <div class="col-xs-6">
+                                        <button ng-click="vm.signupPOP('referral')" style="    float: left; width: 100%; background-image: none;">
+                                            SignUp
+                                        </button>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <button ng-click="vm.openLoginPopup('referral')" style="float: left; width: 100%; background-image: none;">
+                                            Login
+                                        </button>
+                                    </div>
+                                    <div class="col-md-12 col-xs-12 " style="    padding-top: 30px;">
+                                        <button ng-click="vm.VendorContactUs();" style="float: left; width: 100%; background-image: none;">
+                                            Become Our Partner
+                                        </button>
+                                    </div>
+                                </br>
+                            </br>
+                        </div>
+                        <div class="col-xs-12" ng-show="vm.isVendor()" style="    padding-top: 20px;">
+                            <b style="color: #ec5d6e">
+                                ReferYogi
+                            </b>
+                            <br>
+                                <p>
+                                    Redemption Dashboard
+                                </p>
+                                <br>
+                                    <div class="col-xs-6">
+                                        <button ng-click="vm.goVendorProfile()" style="    float: left; width: 100%; background-image: none;">
+                                            Dashboard
+                                        </button>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <button ng-click="vm.Logout()" style="float: left; width: 100%; background-image: none;">
+                                            Logout
+                                        </button>
+                                    </div>
+                                </br>
+                            </br>
+                        </div>
+                    </span>
+                </div>
+                <div class="col-md-6 main-header-search hidden-sm hidden-xs nopad">
+                    <input class="search_n" ng-enter="vm.searchBox(vm.search_txt)" ng-model="vm.search_txt" placeholder="Search Offers" type="text">
+                    </input>
+                    <button class="search_n" ng-click="vm.searchBox(vm.search_txt)">
+                    </button>
+                </div>
+                <span class=" hidden-sm hidden-xs ">
+                    <div class="col-md-2 col-xs-12 col-sm-12 main-header-location text-center">
+                        <i class="glyphicon glyphicon-map-marker">
+                        </i>
+                        <div class="dropdown">
+                            <span class="dropdown-toggle" data-toggle="dropdown" ng-init="   vm.Datacity();" type="button">
+                                {{vm.City}}
+                            </span>
+                            <span class="caret">
+                            </span>
+                            <ul class="dropdown-menu location-dropdown">
+                                <li ng-click="vm.setCityCookie(city)" ng-repeat="city in vm.CityList">
+                                    <a>
+                                        {{city.attributes.name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2 main-header-signin" ng-hide="vm.isVendor()">
+                        <div class="dropdown" ng-if="vm.isReferral() == true">
+                            <button class="dropbtn">
+                                <img alt="User-image" ng-src="{{vm.user.profile_image}}"/>
+                            </button>
+                            <div class="dropdown-content" style="    left: -115px;">
+                                <div class="dropbox">
+                                    <b style="color: #ec5d6e">
+                                        Your Account
+                                    </b>
+                                    <p>
+                                        Access Account & Manage Offers
+                                    </p>
+                                    <button ng-click="vm.goProfile()" style="float: left;">
+                                        Profile
+                                    </button>
+                                    <button ng-click="vm.Logout()" style="float: right;">
+                                        Logout
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="main-header-signups" ng-if="vm.isReferral() == false">
+                            <li ng-hide="vm.isReferral()">
+                                <a href="#" ng-click="vm.openLoginPopup('referral')">
+                                    Login
+                                </a>
+                            </li>
+                            <li ng-hide="vm.isReferral()">
+                                <a href="#" ng-click="vm.signupPOP('referral')">
+                                    Signup
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="col-md-2 main-header-partner" ng-show="vm.isVendor()">
+                            <button ng-click="vm.goVendorProfile()">
+                                Dashboard
+                            </button>
+                        </div>
+                        <div class="col-md-2 main-header-signin" ng-show="vm.isVendor()">
+                            <button ng-click="vm.Logout()">
+                                Logout
+                            </button>
+                        </div>
+                    </div>
+                </span>
+            </div>
+        </div>
+    </div>
+</header>
+<hr/>
+<style type="text/css">
+    .manage-account{
+    background: #fff;
+    padding: 20px 16px;
+    text-align: left;
+    width: 300px;
+    position: absolute;
+    z-index: 1;
+    box-shadow: 0px 0px 6px #888;
+    border-radius: 3px;
+    top: 50px;
+    left: -40px;
+  }
+  .manage-account i{
+    text-align: right;
+    display: block;
+    color: #b3b3b3;
+  }
+  .manage-account b{
+    margin: 10px 0px;
+  }
+  .manage-account p{
+    margin: 10px 0px;
+  }
+  .manage-account button{
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-right: 15px;
+  }
+</style>

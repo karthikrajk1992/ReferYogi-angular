@@ -1,0 +1,840 @@
+<toast>
+</toast>
+
+<style type="text/css">
+    
+    
+    .but:hover
+    {    color: #e85826;
+    background-color: #fff;
+    border: 2px solid #e85826;
+
+}
+</style>
+
+<!-- City -->
+<div class="overlay" id="choose-city">
+
+    <div class="overlay-content">
+        <div class="row ">
+              <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12  white nopad">
+
+
+                     <div class="col-md-1 nopad ico" style="float: right;
+    margin-top: -13px;">
+                     <!--    <i aria-hidden="true" class="fa fa-close offer-logo-40px mar10" >
+                        </i> -->
+                    </div>
+
+                <div class="text-center  nopad pad-bot-10">
+                    <img class="poplogo" style="    height: 70px;" src="/app/assets/images/header/Logo@2x.png">
+        
+                            <h4>Choose City</h4>        
+
+                            <div class="col-md-12" style="    padding: 15px 0px;">
+                            <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2 ">
+
+
+
+                                <select class="form-control" ng-init="vm.selectedCity=0" ng-model="vm.selectedCity">
+                                   <option ng-repeat="(id,value) in vm.cities() track by $index" ng-value="{{$index}}"   >
+                                     {{value.attributes.name}}
+                                   </option>
+                                 </select>
+
+<!-- 
+                                <select class="form-control"  ng-init="vm.selectedCity='Chennai'" ng-model="vm.selectedCity"  ng-options="x.attributes.name for x in vm.cities()">
+                                </select>
+ -->
+
+                                   <!--  <select class="form-control" ng-modal="vm.tempCitydata" >
+                                    <option ng-value="city" ng-repeat="city in vm.cities()" ng-click="vm.setCityCookie(city)">{{city.attributes.name}}</option>
+                                      </select>   -->
+                            </div>
+
+                              <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2" style="     padding-bottom: 15px;   margin-top: 15px;">
+                          
+                            <button  ng-click="vm.setCityCookie(vm.cities()[vm.selectedCity])" class="form-control" style="background: #d8091f;
+    color: white;
+    font-size: 16px;">Select</button>
+
+                                </div>
+                                </div>
+
+              <!--           <div class="col-md-12 col-xs-12 col-sm 12 " style="   padding-top: 50px;  padding-bottom: 10px;">
+
+
+                                 <div class="col-md-6 col-xs-6 col-sm-6 text-center but" ng-repeat="city in vm.cities()" ng-click="vm.setCityCookie(city)">
+                                        <h3 style="    margin: 10px 0;cursor: pointer;">{{city.attributes.name}} </h3>
+                                </div>     
+                        </div> -->
+           
+                      <!--         <h4>
+                           Choose Location to Continue
+                        </h4> -->
+
+                </div>
+
+
+             
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end login code -->
+
+
+
+<!-- login POPUP -->
+<div class="overlay" id="login-popup">
+<!--     <a class="closebtn" href="javascript:void(0)" ng-click="vm.closeLoginPopup()">
+        ×
+    </a> -->
+    <div class="overlay-content">
+        <div class="row ">
+            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12  white nopad">
+
+                     <div class="col-md-1 nopad ico" style="float: right;
+    margin-top: -13px;">
+                        <i aria-hidden="true" class="fa fa-close offer-logo-40px mar10" ng-click="vm.closeLoginPopup()">
+                        </i>
+                    </div>
+
+                <div class="text-center bg-grey nopad pad-bot-10">
+                    <img class="poplogo" src="/app/assets/images/header/Logo@2x.png">
+                        <h3>
+                            ReferYogi Sign in
+                        </h3>
+                        <br/>
+                        <h5>
+                            Share & Earn Treasure..!!!
+                        </h5>
+                    
+                </div>
+                <div class="text-center temp" ng-controller="LoginCtrl as vm">
+                    <button class="btn btn-block fbbutton " ng-click="vm.FbLogin()">
+                        <span class="fa fa-facebook left falign">
+                        </span>
+                        Sign In with Facebook
+                    </button>
+                   <!--  <button class="btn btn-block gbutton" g-login="" ng-click="vm.GoogleLogin('google')">
+                        <span class="fa fa-google left falign">
+                        </span>
+                        Sign in with Google
+                    </button> -->
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end login code -->
+<!-- login POPUP -->
+<div class="overlay" id="login-signup">
+<!--     <a class="closebtn" href="javascript:void(0)" ng-click="vm.signupPOPClose()">
+        ×
+    </a> -->
+    <div class="overlay-content">
+        <div class="row ">
+              <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12  white nopad">
+
+
+                     <div class="col-md-1 nopad ico" style="float: right;
+    margin-top: -13px;">
+                        <i aria-hidden="true" class="fa fa-close offer-logo-40px mar10" ng-click="vm.signupPOPClose()">
+                        </i>
+                    </div>
+
+                <div class="text-center bg-grey nopad pad-bot-10">
+                    <img class="poplogo" src="/app/assets/images/header/Logo@2x.png">
+                        <h3>
+                            Sign up with ReferYogi
+                        </h3>
+                        <br/>
+                        <h5>
+                            Share & Earn Treasure..!!!
+                        </h5>
+                    
+                </div>
+                <div class="text-center temp" ng-controller="LoginCtrl as vm">
+                    <button class="btn btn-block fbbutton " ng-click="vm.FbLogin('facebook')">
+                        <span class="fa fa-facebook left falign">
+                        </span>
+                        Sign Up with Facebook
+                    </button>
+         <!--            <button class="btn btn-block gbutton" g-login="" ng-click="vm.GoogleLogin('google')">
+                        <span class="fa fa-google left falign">
+                        </span>
+                        Sign UP with Google
+                    </button> -->
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end login code -->
+
+
+
+
+<!-- login POPUP -->
+<div class="overlay" id="login-popup">
+<!--     <a class="closebtn" href="javascript:void(0)" ng-click="vm.closeLoginPopup()">
+        ×
+    </a> -->
+    <div class="overlay-content">
+        <div class="row ">
+            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12  white nopad">
+
+                     <div class="col-md-1 nopad ico" style="float: right;
+    margin-top: -13px;">
+                        <i aria-hidden="true" class="fa fa-close offer-logo-40px mar10" ng-click="vm.closeLoginPopup()">
+                        </i>
+                    </div>
+
+                <div class="text-center bg-grey nopad pad-bot-10">
+                    <img class="poplogo" src="/app/assets/images/header/Logo@2x.png">
+                        <h3>
+                            ReferYogi Sign in
+                        </h3>
+                        <br/>
+                        <h5>
+                            Share & Earn Treasure..!!!
+                        </h5>
+                    
+                </div>
+                <div class="text-center temp" ng-controller="LoginCtrl as vm">
+                    <button class="btn btn-block fbbutton " ng-click="vm.FbLogin()">
+                        <span class="fa fa-facebook left falign">
+                        </span>
+                        Sign In with Facebook
+                    </button>
+                   <!--  <button class="btn btn-block gbutton" g-login="" ng-click="vm.GoogleLogin('google')">
+                        <span class="fa fa-google left falign">
+                        </span>
+                        Sign in with Google
+                    </button> -->
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end login code -->
+
+
+
+
+
+<!-- Get Code POPUP -->
+<div class="overlay" id="confirm-code-popup" style="top: 5%">
+    <div class="overlay-content">
+      
+            <div class="col-md-8 row col-md-offset-2 white pad-bot0 pad10 ">
+                  <div class="row " ng-repeat="item in vm.getSelectedOfferData()">
+                <div class="row mar20bt">
+                    <div class="col-md-1 col-sm-2 col-xs-2 nopad ico">
+                        <i aria-hidden="true" class="fa fa-arrow-left offer-logo-40px mar10" ng-click="vm.closegetcodepopup()" style="padding-left: 11px;">
+                        </i>
+                    </div>
+                    <div class="col-md-8 col-sm-6 col-xs-6 nopad text-left">
+                        <h4 class="mar10">
+                            <b>
+                                {{item.attributes.name}}
+                            </b>
+                        </h4>
+                        <div class="offer-location">
+                            <b>
+                                At {{item.attributes.business_name}} -
+                            </b>
+                            <span>
+                                {{item.attributes.place}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-4 text-right">
+                        <img class="offer-logo-set" style="    padding-right: 10px;" ng-src="    {{item.attributes.business_avatar_thumb}}">
+                        </img>
+                    </div>
+                 
+                </div>
+            </div>
+            <div class="row backcls mar-10px text-left">
+                <div class="form-group popupcenter padtop40 ">
+                    <div class="col-md-12 nopad text-center" ng-show="vm.isReferral()">
+                        <h4 class="marbt20">
+                            Hi  {{vm.username()}}
+                        </h4>
+                        <h4 class="marbt20">
+                            Availing this offer will add  Rs.{{item.attributes.treasure_value}} to your ReferYogi Wallet!
+                        </h4>
+                        <h4 class="marbt20">
+                            Offer code sent to your registered mobile No - 
+
+
+
+                  {{vm.usermobile()}}
+                        </h4>
+                    </div>
+                    <div class="col-md-12 nopad text-center" ng-hide="vm.isReferral()">
+                        <h4 class="marbt20">
+                            Hi  Guest
+                        </h4>
+                        <h4 class="marbt20">
+                            Offer code sent to your registered mobile No - 
+
+                  {{vm.mobile()}}
+                        </h4>
+                    </div>
+                    <div class="col-md-12 nopad gpad text-center" ng-show="vm.isReferral()">
+                        <span class="offer-spini">
+                            <i aria-hidden="true" class="fa fa-share-alt-square link-icon">
+                            </i>
+                            SHARE & EARN
+                        </span>
+                    </div>
+                    <div class="col-md-12 nopad gpad text-center" ng-hide="vm.isReferral()">
+                        <span class="offer-spini" ng-click="vm.signupPOP()">
+                            <i aria-hidden="true" class="fa fa-share-alt-square link-icon">
+                            </i>
+                            SIGN UP & SHARE & EARN
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row backcls mar-10px text-left dotted" ng-hide="vm.isReferral()">
+                <div class="col-md-12 nopad" style="margin-top: 10px">
+                    <div class="col-md-12 nopad text-center">
+                        <p class="font15px popupfoot1 ">
+                            <b>
+                                Become a ReferYogi to enjoy the Treasure amount hidden under every offer!!!
+                            </b>
+                            <br/>
+                        </p>
+                        <div class="social pad-bot10 padtop30 popupfoot1">
+                            <a class="fa fa-twitter twitter" ng-click="vm.signupPOP()" title="">
+                            </a>
+                            <a class="fa fa-facebook fb" ng-click="vm.signupPOP()" title="">
+                            </a>
+                            <a class="fa fa-clone clone" ng-click="vm.signupPOP()" title="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row backcls mar-10px text-left dotted" ng-show="vm.isReferral()">
+                <div class="col-md-12 nopad mar45">
+                    <div class="col-md-12 nopad text-center">
+                        <p class="font15px popupfoot1 ">
+                            <b>
+                                Keep Sharing and Earn upto Rs.{{item.attributes.treasure_value}} every time the code is Redeemed
+                            </b>
+                        </p>
+                        <div class="social pad-bot10 padtop30 popupfoot1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end get code -->
+
+
+<!-- Get Code POPUP mobile no-->
+<div class="overlay" id="get-code-popup">
+
+    <div class="overlay-content" style="    top: 5%;">
+
+
+           
+
+        <div class="row "  ng-repeat="item in vm.getSelectedOfferData()">
+
+
+   <div class="col-md-8 row col-md-offset-2 white pad-bot0 pad10 ">
+        
+
+
+
+        <div class="row mar20bt">
+
+                        
+                    <div class="col-md-1  col-sm-2 col-xs-2 nopad ico">
+                        <i aria-hidden="true" class="fa fa-arrow-left offer-logo-40px mar10" style="padding-left: 11px;" ng-click="vm.closeGetNoPopup()">
+                        </i>
+                    </div>
+
+           
+
+                     <div class="col-md-8  col-sm-6 col-xs-6 nopad text-left">
+                        <h4 class="mar10">
+                            <b>
+                                  {{item.attributes.name}}
+                            </b>
+                        </h4>
+                        <div class="offer-location">
+                            <b>
+                                At {{item.attributes.business_name}} -
+                            </b>
+                            <span>
+                                {{item.attributes.place}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-4 text-right">
+                        <img class="offer-logo-set" style="    padding-right: 43px;" ng-src="    {{item.attributes.business_avatar_thumb}}">
+                        
+                    </div>
+                    <hr>
+                    </hr>
+                </div>
+                <div class="row backcls mar-10px text-left">
+                    <div class="form-group popupcenter ">
+                        <form name="get_coupen" ng-submit="vm.sentMobileNo(mobile,true,item.id)" novalidate="">
+                            <div class="col-md-8 nopad">
+                                <label for="usr">
+                                    Enter your mobile no to get code
+                                </label>
+                                <input class="form-control nbr min40" id="usr" maxlength="10" minlength="10" name="mobile" ng-model="mobile" ng-pattern="/^[0-9]+$/" placeholder="Mobile no" required="" type="number">
+                                    <span ng-show="(get_coupen.mobile.$touched || submitted) && get_coupen.mobile.$error.minlength" style="color: red">
+                                        Minimum 10 digits required.
+                                    </span>
+                                    <span ng-show="(get_coupen.mobile.$touched || submitted) && get_coupen.mobile.$error.maxlength" style="color: red">
+                                        Maximum 10 digits only allowed.
+                                    </span>
+                                </input>
+                            </div>
+                            <div class="col-md-4 nopad mar25x">
+                                <button class="btn min40 width100 nbr" ng-disabled="get_coupen.$invalid" type="submit">
+                                    SEND CODE!
+                                </button>
+                            </div>
+                        </form>
+                        <div class="col-md-12 nopad mar40">
+                            <span class="offer-spini">
+                                <i aria-hidden="true" class="fa fa-gift link-icon fagift">
+                                </i>
+                                MY TREASURE
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row backcls mar-10px text-left dotted">
+                    <div class="col-md-12 nopad mar40">
+                        <p class="font15px popupfoot pad-bot ">
+                            Psst...!
+                            <br/>
+                            Sign up to become a ReferYogi referral and earn the Treasure amount with this offer!
+                            <br/>
+                        </p>
+                        <p class="fbblue font15px popupfoot pad-bot" ng-click="vm.signupPOP()">
+                            <i aria-hidden="true" class="fa fa-facebook link-icon">
+                            </i>
+                            SIGN UP WITH FACEBOOK
+                            <br/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end get code -->
+
+
+
+
+
+
+
+
+
+<!-- Get  Register for vendor-->
+<div class="overlay" id="vendor-popup" >
+
+  <!--   <a class="closebtn" href="javascript:void(0)" ng-click="vm.closeVendorRegister()">
+        ×
+    </a>
+ -->
+
+    <div class="overlay-content" style="top: 2%" >
+        <div class="row" >
+            <div class="col-md-8 row col-md-offset-2  pad-bot0 pad10 ">
+
+                              <div class="col-md-1 nopad ico" style="float: right;    z-index: 999;
+    margin-top: -13px;">
+                        <i aria-hidden="true" class="fa fa-close offer-logo-40px mar10" ng-click="vm.closeVendorRegister()">
+                        </i>
+                    </div>
+
+
+                <div class="row backcls mar-10px text-left">
+                    <div class="form-group  ">
+                        <form name="vendorReg" ng-submit="vm.CreateVendor(mobile)" novalidate="">
+
+<div class="col-md-12">
+
+    <h4 class="text-center">Vendor Sign Up</h4>
+
+                                <div class="col-md-8 row col-md-offset-2  filedmat ">
+                                <label for="usr">
+                                    Enter your name
+                                </label>
+                                <input class="form-control nbr min40" id="usr"  name="name" ng-model="vm.Vendor.name"  placeholder="Name" required="" type="tex">
+                                  
+                                  <span ng-show="(vendorReg.name.$touched || submitted) && vendorReg.name.$error.required" style="color: red">
+
+
+                                    Please enter your name !
+                                     </span>
+
+                                </input>
+                            </div>
+
+
+                            <div class="col-md-8 row col-md-offset-2  filedmat">
+                                <label for="usr">
+                                    Enter your mobile
+                                </label>
+                                <input class="form-control nbr min40" id="usr" maxlength="10" minlength="10" name="mobile" ng-model="vm.Vendor.mobile" ng-pattern="/^[0-9]+$/" placeholder="Mobile no" required="" type="number">
+                                    <span ng-show="(vendorReg.mobile.$touched || submitted) && vendorReg.mobile.$error.minlength" style="color: red">
+                                        Minimum 10 digits required.
+                                    </span>
+                                    <span ng-show="(vendorReg.mobile.$touched || submitted) && vendorReg.mobile.$error.maxlength" style="color: red">
+                                        Maximum 10 digits only allowed.
+                                    </span>
+                                </input>
+                            </div>
+
+                                 <div class="col-md-8 row col-md-offset-2  filedmat">
+                                <label for="usr">
+                                    Enter your email
+                                </label>
+
+
+                                  
+         
+
+
+                                <input class="form-control nbr min40" id="usr"  name="email" ng-model="vm.Vendor.email"  placeholder="Email" required="" type="email">
+
+
+                                     <span ng-show="(vendorReg.email.$touched || submitted) && vendorReg.email.$error.required" style="color: red">
+
+
+                                    Please enter your email !
+                                     </span>
+                                  
+                                </input>
+                            </div>
+
+                                             <div class="col-md-8 row col-md-offset-2  filedmat">
+                                <label for="usr">
+                                    Enter your password (Min 8 characters)
+                                </label> 
+                                <input class="form-control nbr min40" id="usr" min="8"  max="8" name="password" ng-model="vm.Vendor.password" 
+                                 placeholder="Password" required="" type="password">
+
+
+                                       <span ng-show="(vendorReg.password.$touched || submitted) && vendorReg.password.$error.minlength" style="color: red">
+                                        Minimum 3 character  required.
+                                    </span>
+
+
+                                    <span ng-show="(vendorReg.password.$touched || submitted) && vendorReg.password.$error.required" style="color: red">
+
+
+                                    Please enter your password !
+                                     </span>
+                                  
+                                </input>
+
+
+                               <div  ng-click="vm.VendorLoginPopup()" class="mar20">
+
+                                Already have an account? Log in
+</div>
+                            </div>
+
+
+
+
+                                </div>
+
+
+
+                            <div class="col-md-4 row col-md-offset-4 mar25x slven" style="    padding-right: 30px;
+    padding-left: 30px;">
+                                <button class="btn min40 width100 nbr" ng-disabled="vendorReg.$invalid" type="submit">
+                                    Create Vendor Account
+                                </button>
+                            </div>
+
+
+                       
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end get code -->
+
+
+
+
+<!-- Vendor Login-->
+<div class="overlay" id="vendor-popup-login">
+
+<!--     <a class="closebtn" href="javascript:void(0)" ng-click="vm.closeVendorLoginPopup()">
+        ×
+    </a> -->
+
+
+    <div class="overlay-content" style="top: 2%" >
+        <div class="row" >
+            <div class="col-md-6 row col-md-offset-3  pad-bot0 pad10 ">
+
+
+                        
+
+                              <div class="col-md-1 col-sm-1 col-xs-1 nopad ico" style="float: right;    z-index: 999;
+    margin-top: -13px;">
+                        <i aria-hidden="true" class="fa fa-close offer-logo-40px mar10" ng-click="vm.closeVendorLoginPopup()">
+                        </i>
+                    </div>
+
+
+                <div class="row backcls mar-10px text-left">
+                    <div class="form-group  ">
+                        <form name="VendorData" ng-submit="vm.VendorLogin()" novalidate="">
+
+<div class="col-md-12">
+
+    <h4 class="text-center">Vendor Sign In</h4>
+
+         
+                                 <div class="col-md-8 row col-md-offset-2  filedmat">
+                                <label for="usr">
+                                    Enter your email
+                                </label>
+
+
+                                  
+         
+
+
+                                <input class="form-control nbr min40" id="usr"  name="email" ng-model="vm.Vendor.email"  placeholder="Email" required="" type="email">
+
+
+                                     <span ng-show="(VendorData.email.$touched || submitted) && VendorData.email.$error.required" style="color: red">
+
+
+                                    Please enter your email !
+                                     </span>
+                                  
+                                </input>
+                            </div>
+
+                                             <div class="col-md-8 row col-md-offset-2  filedmat">
+                                <label for="usr">
+                                    Enter your password (Min 8 characters)
+                                </label> 
+                                <input class="form-control nbr min40" id="usr" min="8"  max="8" name="password" ng-model="vm.Vendor.password" 
+                                 placeholder="Password" required="" type="password">
+
+
+                                       <span ng-show="(VendorData.password.$touched || submitted) && VendorData.password.$error.minlength" style="color: red">
+                                        Minimum 3 character  required.
+                                    </span>
+
+
+                                    <span ng-show="(VendorData.password.$touched || submitted) && VendorData.password.$error.required" style="color: red">
+
+
+                                    Please enter your password !
+                                     </span>
+                                  
+                                </input>
+                            </div>
+
+                                </div>
+
+                            <div class="col-md-4 row col-md-offset-4 mar25x slven" style="    padding-right: 30px;
+    padding-left: 30px;">
+                                 <button class="btn min40 width100 nbr" ng-disabled="VendorData.$invalid" type="submit">
+                                   Login
+                                </button>
+                            </div>
+
+
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end get code -->
+
+
+
+
+<!-- OFFERS POPUP 1st-->
+<div class="overlay" id="offer-popup">
+    <div class="overlay-content">
+        <div style="min-height: 305px">
+            <div active="active" interval="myInterval" no-wrap="noWrapSlides" on-carousel-change="vm.onSlideChanged(nextSlide, direction)" uib-carousel="">
+                <div index="$index" ng-repeat="item in vm.getItems() track by $index" uib-slide="">
+                    <div class="row ">
+                  
+                        <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 white pad10">
+                            
+ 
+
+
+                                        <span class=" close closif fa-stack " style="font-size: 12px;" ng-click="vm.closeSlidepopup()">
+  <i class="fa fa-circle-thin fa-stack-2x"></i>
+  <i class="fa fa-close fa-stack-1x"></i>
+</span>
+
+
+                            <div class="col-md-5 nopad">
+                                <img   class="img-responsive" ng-src="{{item.attributes.avatar_medium}}" style="width: 100% !important;"/>
+                               
+                            </div>
+                            <div class="col-md-7 nopad">
+                                <div class="pad-top-none offer-details text-left">
+                                    <div class="row">
+
+                                        
+                                        <div class="col-md-8 col-sm-6 col-xs-6">
+                                            <h3 class="tm">
+                                                {{item.attributes.name}}
+                                            </h3>
+                                            <div class="ts pad5 offer-location">
+                                                <b>
+                                                    At {{item.attributes.business_name}} at
+                                                </b>
+                                                <span>
+                                                    {{item.attributes.place}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6 hidden-xs text-right " >
+
+
+                                            <img class="img-responsive"  style="       float: right; margin-top: 3px; height: 70px;" ng-src="{{item.attributes.business_avatar_thumb}}" ng-if="item.attributes.business_avatar_thumb != null">
+                                            </img>
+                                        </div>
+                                    </div>
+                                    <div class="row space-div">
+                                        <div class="col-md-6">
+                                            <button ng-click="vm.getcodepopup(item.id)">
+                                                GET CODE!
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="offer-spini" ng-show=" {{item.attributes.treasure_value}}">
+                                                <i aria-hidden="true" class="fa fa-gift link-icon fagift">
+                                                </i>
+                                                Treasure Upto 
+                                               
+                                                 ₹ {{item.attributes.treasure_value}}
+                                            </span>
+                                        </div>
+                                        <div class="col-md-2 ">
+                                            <!--       <span class="offer-count">
+                                                <i aria-hidden="true" class="fa fa-star-o link-icon ">
+                                                </i>
+                                                54
+                                            </span> -->
+                                        </div>
+                                    </div>
+                                    <div class="min-height160px">
+                                        <div class="col-md-10 nopad">
+                                            <p class="read" hm-dots-class="dots" hm-less-text="Read less" hm-limit="300" hm-link-class="read-more" hm-more-text="Read more" hm-read-more="" hm-text="{{ item.attributes.description | nl2br }}">
+                                            </p>
+                                            <p class="offer-wrap-text space-div">
+                                                **OFFER VALID TILL {{item.attributes.end_date | date:'mediumDate'}} only at {{item.attributes.business_name}} @ {{item.attributes.place}}
+                                            </p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="offer-share col-md-6">
+                                                <label>
+                                                    SHARE
+                                                </label>
+                                                <ul ng-show=" {{item.attributes.treasure_value}}">
+                                                    <li class="offer-share-max">
+                                                        <a data-clipboard-text="{{vm.OfferLink(item.attributes.seo_url,item.attributes.tracking_code.general)}}" ngclipboard="" ngclipboard-success="vm.onCopySuccess(e);">
+                                                        </a>
+                                                    </li>
+                                                    <li class="offer-share-fb">
+                                                        <a ng-click="vm.SocialShareUpdate(item.attributes.seo_url,'facebook')" socialshare="" socialshare-provider="facebook" socialshare-url="{{vm.OfferLink(item.attributes.seo_url,item.attributes.tracking_code.facebook)}}">
+                                                        </a>
+                                                    </li>
+                                                    <li class="offer-share-twitter">
+                                                        <a ng-click="vm.SocialShareUpdate(item.attributes.seo_url,'twitter')" socialshare="" socialshare-hashtags="{item.attributes.seo_keywords}}" socialshare-provider="twitter" socialshare-text="{{item.attributes.seo_description}} {{item.attributes.seo_keywords}}" socialshare-url="{{vm.OfferLink(item.attributes.seo_url,item.attributes.tracking_code.general)}}">
+                                                        </a>
+                                                    </li>
+
+                                                    <li class="offer-share-twitter hidden-lg hidden-md" style="background: url('share-whatsapp.png') no-repeat;
+    background-size: contain;">
+
+
+    <a socialshare="" 
+        socialshare-provider="whatsapp" 
+     socialshare-text="{{item.attributes.caption}}"
+     socialshare-url="{{vm.OfferLink(item.attributes.seo_url,item.attributes.tracking_code.general)}}" style="    background: none;">
+    </a>
+                                                  </li>
+
+                                                </ul>
+                                                <ul ng-click="vm.signupPOP('referral')" ng-hide=" {{item.attributes.treasure_value}}">
+                                                    <li class="offer-share-max">
+                                                        <a>
+                                                        </a>
+                                                    </li>
+                                                    <li class="offer-share-fb">
+                                                        <a>
+                                                        </a>
+                                                    </li>
+                                                    <li class="offer-share-twitter">
+                                                        <a>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="offer-share col-md-6">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end OFFERS POPUP -->
+<style type="text/css">
+    .offer-carousel-r1{
+    width: 4%;
+  }
+</style>
+
+
+

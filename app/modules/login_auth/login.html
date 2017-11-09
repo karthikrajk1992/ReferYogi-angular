@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="well login-container">
+            <h3 class="text-center">
+                LOGIN
+            </h3>
+            <input placeholder="Enter your email" type="email">
+                <input placeholder="Enter your password" type="password">
+                    <button>
+                        LOGIN
+                    </button>
+                    <div class="text-center">
+                        (or)
+                    </div>
+                    <button class="btn btn-default" ng-click="vm.FbLogin()" type="button">
+                        <i aria-hidden="true" class="fa fa-facebook" style="color:#4267b2;">
+                        </i>
+                        Facebook
+                    </button>
+                    <button class="btn btn-default" ng-click="vm.GoogleLogin()" type="button">
+                        <i aria-hidden="true" class="fa fa-google" style="color: #f55344;">
+                        </i>
+                        Google
+                    </button>
+                    <a style="display: block; text-align: center; margin-top: 10px;" ui-sref="signup">
+                        Don't have account click here
+                    </a>
+                </input>
+            </input>
+        </div>
+    </div>
+</div>
+<style>
+    .login-container{
+		background: #fff;
+		margin: 50% 0;
+	}
+	.login-container input, .login-container button{
+		width: 100%;
+		display: block;
+		margin: 10px 0;
+	}
+</style>
