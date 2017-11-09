@@ -13,7 +13,7 @@
 		.module('angular-app')
 		.controller('HomeCtrl', Home);
 
-	Home.$inject = ['homeService'];
+	Home.$inject = ['homeService',];
 
 	/*
 	* recommend

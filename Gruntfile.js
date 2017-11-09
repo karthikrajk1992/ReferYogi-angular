@@ -35,11 +35,27 @@ module.exports = function (grunt) {
 		concat: {
 			options: {
 				banner: '<%= banner %>',
-				stripBanners: false
+				stripBanners: true,
+				separator: ';',
 			},
-			base: {
+			build: {
 				src: [
 					// Angular Project Dependencies,
+					"src/bower_components/jquery/dist/jquery.min.js",
+					"src/bower_components/es5-shim/es5-shim.min.js",
+					"src/bower_components/json3/lib/json3.min.js",
+					"src/bower_components/bootstrap/dist/js/bootstrap..min.js",
+					"src/bower_components/angular/angular.min.js",
+					"src/bower_components/angular-touch/angular-touch.min.js",
+					"src/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
+					"src/bower_components/angular-aria/angular-aria.min.js",
+					"src/bower_components/angular-mocks/angular-mocks.min.js",
+					"src/bower_components/angular-cookies/angular-cookies.min.js",
+					"src/bower_components/angular-animate/angular-animate.min.js",
+					"src/bower_components/angular-sanitize/angular-sanitize.min.js",
+					"src/bower_components/angular-resource/angular-resource.min.js",
+					"src/bower_components/angular-ui-router/release/angular-ui-router.min.js",
+					"src/bower_components/angular-update-meta/dist/update-meta.min.js",
 					'app/app.js',
 					'app/app.config.js',
 					'app/modules/**/*Module.js',
@@ -47,18 +63,11 @@ module.exports = function (grunt) {
 					'app/modules/**/*Ctrl.js',
 					'app/modules/**/*Service.js',
 					'app/modules/shared/**/*.js',
-					'app/modules/**/*Directive.js'
-				],
-				dest: 'app/assets/js/<%= pkg.name %>-appbundle.js'
-			},
-			build: {
-				src: [
-					// Angular Project Dependencies,
-					'app/assets/libs/angular/angular.js',
-					'app/assets/libs/**/*.js'
+					'app/modules/**/*Directive.js',
+					'app/assets/**/templates.js'
 
 				],
-				dest: 'app/assets/js/<%= pkg.name %>-angularbundle.js'
+				dest: 'app/assets/js/<%= pkg.name %>-compressed.js'
 			}
 		},
 
@@ -66,18 +75,13 @@ module.exports = function (grunt) {
 			options: {
 				banner: '<%= banner %>',
 				report: 'min'
+
 			},
 			base: {
-				src: ['<%= concat.base.dest %>'],
-				dest: 'app/assets/js/<%= pkg.name %>-angscript.min.js'
+				src: 'app/assets/js/<%= pkg.name %>-compressed.js',
+				dest: 'app/assets/js/<%= pkg.name %>-compressed.js'
 			},
-			basePlugin: {
-				src: [ 'src/plugins/**/*.js' ],
-				dest: 'app/assets/js/plugins/',
-				expand: true,
-				flatten: true,
-				ext: '.min.js'
-			}
+
 		},
 
 		connect: {
@@ -130,9 +134,8 @@ module.exports = function (grunt) {
 			production: {
 				files: {
 					'index.html': [
-						'bower.json',
 						'app/assets/css/**/*.css',
-						'app/assets/js/*.js'
+						'app/assets/js/<%= pkg.name %>-compressed.js'
 					]
 
 				}
@@ -167,6 +170,7 @@ module.exports = function (grunt) {
 		"exec",
 		"concat",
 		"ngtemplates",
+		// "uglify",
 		"injector:production",
 		"concurrent",
 		"clean"
