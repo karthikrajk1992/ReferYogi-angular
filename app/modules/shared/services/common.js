@@ -66,5 +66,14 @@
             $cookies.remove('mobile');
             window.location = window.location.origin; // go to the home page
         }
+        this.showMessage = function(title, desc) {
+            //	ngToast.dismiss();
+            // ngToast.create({
+            //     content: response.data.errors[0].detail,
+            //     dismissOnTimeout: false,
+            //     dismissButton: true,
+            //     dismissOnClick: false
+            // });
+        }
     });
 })();

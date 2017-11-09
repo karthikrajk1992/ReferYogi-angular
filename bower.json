@@ -23,9 +23,9 @@
     "angular-sanitize": ">=1.3.*",
     "angular-resource": ">=1.3.*",
     "angular-ui-router": "~0.2.10",
-    "angular-update-meta": "^2.0.1"
+    "angular-update-meta": "^2.0.1",
   },
   "resolutions": {
-    "angular": ">=1.3.*"
+    "angular": "1.3.*"
   }
 }

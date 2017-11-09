@@ -486,6 +486,8 @@ J.$inject=["$state"],K.$inject=["$state"],b.module("ui.router.state").filter("is
 	]);
 
 })();
+
+
 ;(function () {
 	'use strict';
 
@@ -541,6 +543,58 @@ J.$inject=["$state"],K.$inject=["$state"],b.module("ui.router.state").filter("is
 
 	angular.module('home', []);
 })();
+;(function() {
+	'use strict';
+
+	/**
+	* @ngdoc function
+	* @name app.module:homeModule
+	* @description
+	* # homeModule
+	* Module of the app
+	*/
+
+	angular.module('loginModule', []);
+})();
+;(function() {
+	'use strict';
+
+	/**
+	* @ngdoc function
+	* @name app.module:homeModule
+	* @description
+	* # homeModule
+	* Module of the app
+	*/
+
+	angular.module('redeemcoupon', []);
+})();
+;(function() {
+	'use strict';
+
+	/**
+	* @ngdoc function
+	* @name app.module:homeModule
+	* @description
+	* # homeModule
+	* Module of the app
+	*/
+
+	angular.module('refferal', []);
+})();
+;(function() {
+	'use strict';
+
+	/**
+	* @ngdoc function
+	* @name app.module:homeModule
+	* @description
+	* # homeModule
+	* Module of the app
+	*/
+
+	angular.module('signupModule', []);
+})();
 ;'use strict';
 
 	/**
@@ -563,41 +617,117 @@ angular.module('angular-app')
 			});
 			
 	}]);
-;(function () {
-	'use strict';
+;'use strict';
 
 	/**
 	* @ngdoc function
-	* @name app.controller:HomeCtrl
+	* @name app.route:HomeRoute
 	* @description
-	* # HomeCtrl
-	* Controller of the app
+	* # HomeRoute
+	* Route of the app
 	*/
 
-	angular
-		.module('angular-app')
-		.controller('HomeCtrl', Home);
+angular.module('angular-app')
+	.config(['$stateProvider', function ($stateProvider) {
+		$stateProvider
+			
+			.state('loginAuth', {
+				url: '/login',
+				templateUrl: 'app/modules/loginAuth/login.html',
+				controller: 'LoginCtrl',
+				controllerAs: 'vm'
+			});
+			
+	}]);
+;'use strict';
+/**
+ * @ngdoc function
+ * @name app.route:HomeRoute
+ * @description
+ * # HomeRoute
+ * Route of the app
+ */
+angular.module('redeemcoupon').config(['$stateProvider', function($stateProvider) {
+    $stateProvider.state('redeemcoupon', {
+        url: '/redeemcoupon',
+        templateUrl: 'app/modules/redeem_coupon/redeem_coupon.html',
+        controller: 'redeemcouponCtrl',
+        controllerAs: 'vm'
+    });
+}]);
+;'use strict';
 
-	Home.$inject = ['homeService',];
-
-	/*
-	* recommend
-	* Using function declarations
-	* and bindable members up top.
+	/**
+	* @ngdoc function
+	* @name app.route:HomeRoute
+	* @description
+	* # HomeRoute
+	* Route of the app
 	*/
 
-	function Home(homeService) {
-		/*jshint validthis: true */
-		var vm = this;
-		vm.title = "Hello, angular-app!";
-		vm.version = "1.0.0";
-		homeService.getOffer().then(function(response){
-			vm.offers = response.data;
-			debugger
-		});
+angular.module('refferal')
+	.config(['$stateProvider', function ($stateProvider) {
+		$stateProvider
+			
+			.state('refferal', {
+				url: '/refferal',
+				templateUrl: 'app/modules/refferal_user/refferal.html',
+				controller: 'refferalCtrl',
+				controllerAs: 'vm'
+			});
+			
+	}]);
+;'use strict';
 
-	}
+	/**
+	* @ngdoc function
+	* @name app.route:HomeRoute
+	* @description
+	* # HomeRoute
+	* Route of the app
+	*/
 
+angular.module('signupModule')
+	.config(['$stateProvider', function ($stateProvider) {
+		$stateProvider
+			
+			.state('signup', {
+				url: '/signup',
+				templateUrl: 'app/modules/signup/signup.html',
+				controller: 'signupCtrl',
+				controllerAs: 'vm'
+			});
+			
+	}]);
+;(function() {
+    'use strict';
+    /**
+     * @ngdoc function
+     * @name app.controller:HomeCtrl
+     * @description
+     * # HomeCtrl
+     * Controller of the app
+     */
+    angular.module('angular-app').controller('HomeCtrl', Home);
+    Home.$inject = ['homeService', ];
+    /*
+     * recommend
+     * Using function declarations
+     * and bindable members up top.
+     */
+    function Home(homeService) {
+        var vm = this;
+        vm.isReferral = function() {
+            return false;
+        }
+        homeService.getOffer().then(function(response) {
+            vm.offers = response.data;
+        });
+        homeService.getPreloadData().then(function(response) {
+            vm.PreloadedData = response.data;
+            vm.locations = vm.PreloadedData.locations;
+        });
+    }
 })();
 ;(function () {
 	'use strict';
@@ -633,31 +763,419 @@ angular.module('angular-app')
 
 })();
 ;(function() {
-  'use strict';
-
-  /**
-   * @ngdoc function
-   * @name app.service:manageService
-   * @description
-   * # manageService
-   * Service of the app
-   */
-
-  angular
-    .module('angular-app')
-    .service('homeService', function($http, UserAjax) {
-      // debugger
-      this.getOffer =  function() {
-      	debugger
-        // debugger
-        return UserAjax.request('GET', '/home/offers', {}).then(function (response) {
-        	debugger
-          return response.data;
+    'use strict';
+    /**
+     * @ngdoc function
+     * @name app.controller:HomeCtrl
+     * @description
+     * # HomeCtrl
+     * Controller of the app
+     */
+    angular.module('loginModule').controller('LoginCtrl', Login);
+    Login.$inject = ['LoginService', 'SocialLoginService', '$scope', '$location', 'ngToast', '$timeout', '$state'];
+    /*
+     * recommend
+     * Using function declarations
+     * and bindable members up top.
+     */
+    function Login(LoginService, SocialLoginService, $scope, $location, ngToast, $timeout, $state) {
+        /*jshint validthis: true */
+        var vm = this;
+        vm.title = "Hello, angular-app!";
+        vm.version = "1.0.0";
+        // vm.listFeatures = LoginService.getFeaturesList();
+        $scope.$on("FBLoginComplete", function(event, args) {
+            var auth = {};
+            auth.access_token = args.authData.authResponse.accessToken;
+            auth.role = 'referer';
+            LoginService.Login(auth, function(result) {
+                if (result == 'referer') {
+                    document.getElementById("login-popup").style.width = "0%";
+                    document.getElementById("login-signup").style.width = "0%";
+                    $timeout(function() {
+                        ngToast.dismiss();
+                        ngToast.create({
+                            content: 'Welcome to ReferYogi!!',
+                            dismissOnTimeout: true,
+                            dismissButton: true,
+                            dismissOnClick: false
+                        });
+                    }, 2000);
+                    // window.location.reload();
+                    LoginService.getProfileInfo();
+                } else if (result == 'vendor') {
+                    document.getElementById("login-popup").style.width = "0%";
+                    document.getElementById("login-signup").style.width = "0%";
+                } else {
+                    console.log('not logged in');
+                }
+            });
         });
-      };
-    });
+        $scope.$on("FBLoginCompleteVendor", function(event, args) {
+            var auth = {};
+            auth.access_token = args.authData.authResponse.accessToken;
+            auth.role = 'vendor';
+            LoginService.Login(auth, function(result) {
+                if (result == 'vendor') {
+                    document.getElementById("login-popup").style.width = "0%";
+                    document.getElementById("login-signup").style.width = "0%";
+                    $location.path('redeemcoupon');
+                } else {
+                    document.getElementById("login-popup").style.width = "0%";
+                    document.getElementById("login-signup").style.width = "0%";
+                    $timeout(function() {
+                        ngToast.dismiss();
+                        ngToast.create({
+                            content: 'Something went wrong',
+                            dismissOnTimeout: true,
+                            dismissButton: true,
+                            dismissOnClick: false
+                        });
+                    }, 2000)
+                    console.log('not logged in');
+                }
+            });
+            console.log('my event FBLoginCompleteVendor');
+            console.log(args)
+        });
+        $scope.$on("GoogleLoginComplete", function(event, args) {
+            console.log('my event GoogleLoginComplete');
+            console.log(args)
+        });
+        vm.FbLogin = function() {
+            document.getElementById("login-popup").style.width = "0%";
+            document.getElementById("login-signup").style.width = "0%";
+            console.log(window.loginRole)
+            if (window.loginRole == 'vendor') {
+                console.log('vendor')
+                SocialLoginService.vendorFacebookLogin();
+            } else {
+                SocialLoginService.facebookLogin();
+            }
+        }
+        vm.GoogleLogin = function() {
+            SocialLoginService.googleLogin();
+        }
+    }
+})();
+;(function() {
+    'use strict';
+    /**
+     * @ngdoc function
+     * @name app.controller:HomeCtrl
+     * @description
+     * # HomeCtrl
+     * Controller of the app
+     */
+    angular.module('redeemcoupon').controller('redeemcouponCtrl', RedeemCoupon);
+    RedeemCoupon.$inject = ['$http', 'LoginService', '$location', 'ngToast', '$timeout'];
+    /*
+     * recommend
+     * Using function declarations
+     * and bindable members up top.
+     */
+    function RedeemCoupon ($http, LoginService, $location, ngToast, $timeout) {
+        /*jshint validthis: true */
+        var vm = this;
+        vm.redeemCoupon = function() {
+            if (vm.showInfo.amount_to_pay) {
+                $http.post('https://api.spini.co/v1/redemptions', {
+                    "redemption": {
+                        "coupon_code": vm.coupon_code,
+                        "business_id": vm.business_id,
+                        "amount": vm.amount,
+                        'savings': vm.showInfo.savings,
+                        'savings_type': vm.showInfo.savings_type,
+                        'deductions': vm.showInfo.offer_amount,
+                        'amount_paid': vm.showInfo.amount_to_pay
+                    }
+                }).then(function() {
+                    ngToast.dismiss();
+                    ngToast.create({
+                        content: '<strong>Referla</strong>: Code Redemptions complete',
+                        dismissOnTimeout: false,
+                        dismissButton: true,
+                        dismissOnClick: false
+                    });
+                    vm.coupon_code = '';
+                    vm.amount = '';
+                    vm.showInfo = '';
+                    // vm.showInfo = '';
+                    vm.RedemptionsHistory()
+                }).catch(function(response) {
+                    ngToast.dismiss();
+                    ngToast.create({
+                        content: response.data.errors[0].detail,
+                        dismissOnTimeout: false,
+                        dismissButton: true,
+                        dismissOnClick: false
+                    });
+                });
+            }
+        }
+        vm.checkCode = function() {
+            console.log('de');
+            $http.post('https://api.spini.co/v1/redemptions/verify_coupon', {
+                "redemption": {
+                    "coupon_code": vm.coupon_code,
+                    "business_id": vm.business_id,
+                    "amount": vm.amount
+                }
+            }).then(function(response) {
+                if (response.data.code) {
+                    vm.showInfo = response.data;
+                }
+            }).catch(function(response) {
+                ngToast.dismiss();
+                ngToast.create({
+                    content: response.data.errors[0].detail,
+                    dismissOnTimeout: false,
+                    dismissButton: true,
+                    dismissOnClick: false
+                });
+            });
+        }
+        // vm.History = angular.fromJson('[{"id":"2","type":"redemptions","attributes":{"coupon_code":"39610A","coupon_id":3,"business_id":1,"offer_id":1,"created_at":"Oct 05, 2017","place":"T.Nagar","price":"1000.0","amount_paid_by_buyer":"500.0"}}]');
+        // console.log()
+        vm.History = [];
+        vm.closePopup = function() {
+            document.getElementById("get-vendor-mobile-no-popup").style.width = "0%";
+        }
+        vm.openPopup = function(data, id) {
+            document.getElementById("get-vendor-mobile-no-popup").style.width = "100%";
+        }
+        vm.RedemptionsHistory = function() {
+            $http.get('https://api.spini.co/v1/redemptions?business_id=' + vm.business_id).then(function(response) {
+                vm.History = response.data.data;
+            });
+        }
+        vm.UpdateMobile = function(mobile) {
+            console.log(mobile);
+            $http.put('https://api.spini.co/v1/profile', {
+                "user": {
+                    "mobile": mobile,
+                }
+            }).then(function(response) {
+                vm.closePopup();
+            }).catch(function(response) {
+                ngToast.dismiss();
+                ngToast.create({
+                    content: response.data.errors[0].detail,
+                    dismissOnTimeout: false,
+                    dismissButton: true,
+                    dismissOnClick: false
+                });
+            });
+        }
+        if (LoginService.isVendor()) {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + LoginService.authToken();
+            LoginService.getVendorProfileInfo(function(data) {
+                vm.vendor = data;
+                if (vm.vendor.businesses) {
+                    if (vm.vendor.businesses.length > 0) {
+                        vm.business_id = vm.vendor.businesses[0].id; // select first items
+                    }
+                    vm.RedemptionsHistory();
+                }
+                // vm.vendor.mobile = null;
+                if (!vm.vendor.mobile) {
+                    vm.openPopup();
+                }
+            });
+            // LoginService.getVendorDataList(function(data) {
+            //     vm.vendorDataList = data;
+            // });
+        } else {
+            $location.path('/')
+        }
+    }
+})();
+;(function() {
+    'use strict';
+    /**
+     * @ngdoc function
+     * @name app.controller:HomeCtrl
+     * @description
+     * # HomeCtrl
+     * Controller of the app
+     */
+    angular.module('refferal').controller('refferalCtrl', Refferal);
+    Refferal.$inject = ['refferalService', 'LoginService', '$http', '$location','ngToast'];
+    /*
+     * recommend
+     * Using function declarations
+     * and bindable members up top.
+     */
+    function Refferal(refferalService, LoginService, $http, $location,ngToast) {
+        /*jshint validthis: true */
+        var vm = this;
+        vm.closePopup = function() {
+            document.getElementById("get-paytm-no-popup").style.width = "0%";
+        }
+        vm.openPopup = function(data, id) {
+            document.getElementById("get-paytm-no-popup").style.width = "100%";
+        }
+        vm.PaytmAsk = function(mobile, PaytmAsk) {
+            console.log(mobile)
+            console.log(PaytmAsk)
+            console.log(mobile);
+            $http.post('https://api.spini.co/v1/payment_requests', {
+                "payment_request": {
+                    "amount": PaytmAsk,
+                    "paytm_number": mobile
+                }
+            }).then(function(response) {
+                vm.closePopup();
 
-})();;'use strict';
+                ngToast.dismiss();
+                ngToast.create({
+                    content: 'Request Sent amount will credited with in 2 to 3 business days',
+                    dismissOnTimeout: false,
+                    dismissButton: true,
+                    dismissOnClick: false
+                });
+
+
+            }).catch(function(response) {
+                ngToast.dismiss();
+                ngToast.create({
+                    content: response.data.errors[0].detail,
+                    dismissOnTimeout: false,
+                    dismissButton: true,
+                    dismissOnClick: false
+                });
+            });
+        }
+        var temp = 1;
+        if (LoginService.isReferral() && temp == 1) {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + LoginService.authToken();
+            LoginService.getProfileInfo(function(data) {
+                vm.user = data;
+                if (!vm.user.profile_image) {
+                    vm.user.profile_image = '/app/assets/images/ProfileSection/Left-Nav/02Icn-ProfileDetails-Over@2x.png';
+                }
+                // vm.user.wallet_money = 550;
+                temp = 2;
+            })
+        } else {
+            $location.path('/')
+        }
+    }
+})();;// (function() {
+//     'use strict';
+//     /**
+//      * @ngdoc function
+//      * @name app.controller:HomeCtrl
+//      * @description
+//      * # HomeCtrl
+//      * Controller of the app
+//      */
+//     angular.module('loginModule').controller('signupCtrl', signup );
+//     signup.$inject = ['LoginService', 'SocialLoginService', '$scope', '$location', 'ngToast', '$timeout'];
+//     /*
+//      * recommend
+//      * Using function declarations
+//      * and bindable members up top.
+//      */
+//     function signup   (LoginService, SocialLoginService, $scope, $location, ngToast, $timeout) {
+//         /*jshint validthis: true */
+//         var vm = this;
+
+
+//         // vm.listFeatures = LoginService.getFeaturesList();
+//         $scope.$on("FBLoginComplete", function(event, args) {
+//             var auth = {};
+//             auth.access_token = args.authData.authResponse.accessToken;
+//             auth.role = 'referer';
+//             LoginService.Login(auth, function(result) {
+//                 if (result == 'referer') {
+//                     document.getElementById("login-popup").style.width = "0%";
+//                     document.getElementById("login-signup").style.width = "0%";
+//                     $timeout(function() {
+//                         ngToast.dismiss();
+//                         ngToast.create({
+//                             content: '<strong>Spini</strong>: Welcome to S Treasure!',
+//                             dismissOnTimeout: false,
+//                             dismissButton: true,
+//                             dismissOnClick: false
+//                         });
+//                     }, 1000)
+//                 } else if (result == 'vendor') {} else {
+//                     console.log('not logged in');
+//                 }
+//             });
+//             console.log('my event FBLoginComplete');
+//             console.log(args)
+//         });
+//         $scope.$on("FBLoginCompleteVendor", function(event, args) {
+//             var auth = {};
+//             auth.access_token = args.authData.authResponse.accessToken;
+//             auth.role = 'vendor';
+//             LoginService.Login(auth, function(result) {
+//                 if (result == 'vendor') {
+//                     document.getElementById("login-popup").style.width = "0%";
+//                     document.getElementById("login-signup").style.width = "0%";
+
+//                     //get the mobile no
+
+                      
+//                     $timeout(function() {
+//                         ngToast.dismiss();
+//                         ngToast.create({
+//                             content: '<strong>Spini</strong>: Welcome to S Treasure!',
+//                             dismissOnTimeout: false,
+//                             dismissButton: true,
+//                             dismissOnClick: false
+//                         });
+//                     }, 1000)
+//                 } else if (result == 'vendor') {} else {
+//                     console.log('not logged in');
+//                 }
+//             });
+//             console.log('my event FBLoginCompleteVendor');
+//             console.log(args)
+//         });
+//         $scope.$on("GoogleLoginComplete", function(event, args) {
+//             console.log('my event GoogleLoginComplete');
+//             console.log(args)
+//         });
+//         vm.FbRe = function() {
+
+//              console.log('login')
+//             if (window.loginRole == 'vendor') {
+             
+//                 SocialLoginService.vendorFacebookLogin();
+//             } else {
+//                 SocialLoginService.facebookLogin();
+//             }
+//         }
+//         vm.GoogleLogin = function() {
+//             SocialLoginService.googleLogin();
+//         }
+//     }
+// })();;(function() {
+    'use strict';
+    /**
+     * @ngdoc function
+     * @name app.service:homeService
+     * @description
+     * # homeService
+     * Service of the app
+     */
+    angular.module('angular-app').service('homeService', function($http, UserAjax) {
+        this.getOffer = function() {
+            return UserAjax.request('GET', '/home/offers', {}).then(function(response) {
+                return response.data;
+            });
+        };
+        this.getPreloadData = function() {
+            return UserAjax.request('GET', '/home/preload_data', {}).then(function(response) {
+                return response.data;
+            });
+        };
+    });
+})();
+;'use strict';
 
 (function () {
 
@@ -698,638 +1216,500 @@ angular.module('angular-app')
 
 })();
 ;(function() {
-  'use strict';
+    'use strict';
+    /**
+     * @ngdoc function
+     * @name app.service:homeService
+     * @description
+     * # homeService
+     * Service of the app
+     */
+    angular.module('angular-app').service('LoginService', LoginService).service('SocialLoginService', SocialLoginService);
+    LoginService.$inject = ['$http', '$cookies', 'apiBaseURL', '$state','ngToast'];
+    SocialLoginService.$inject = ['$q', '$rootScope', '$window'];
 
-  /**
-   * @ngdoc function
-   * @name app.service:ajaxService
-   * @description
-   * # companiesService
-   * Service of the app
-   */
+    function LoginService($http, $cookies, apiBaseURL, $state,ngToast) {
+        var service = {};
+        service.Login = Login;
+        service.Logout = Logout;
+        service.isReferral = isReferral;
+        service.getVendorProfileInfo = getVendorProfileInfo;
+        service.isVendor = isVendor;
+        service.VendorAuth = VendorAuth;
+        service.authToken = authToken;
+        service.VendorCreate = VendorCreate;
+        service.offersClickTrack = offersClickTrack;
+        service.offersViewTrack = offersViewTrack;
+        service.getProfileInfo = getProfileInfo;
+        service.getCityCookie = getCityCookie;
+        service.getCityCookieName = getCityCookieName;
+        service.cityCookie = cityCookie;
+        service.UpdateSocialShare = UpdateSocialShare;
+        service.TrackingCode = TrackingCode;
+        service.getCityDataList = getCityDataList;
+        service.SetTrackingCode = SetTrackingCode;
+        return service;
 
-  angular
-    .module('angular-app')
-    .service("GuestAjax", function($http, $state, $rootScope, $timeout){
-
-    function swalert(errorresponse)
-    {
-      swal({
-     // title: "Success!",
-      text: errorresponse,
-      width: 400,
-      height: 200,
-      type: "", //success,error
-      timer: 3000,
-      showConfirmButton: false
-    })
-    }
-
-      this.request = function(method, endpoint, data){
-
-        var host = 'http://localhost:3000';
-        // var host = 'http://freshgrc-production3193.cloudapp.net';
-        var apiPath = '/api/v1';
-        var url = host + apiPath + endpoint;
-        var headers = {
-          "Accept": "application/json",
-          'Access-Control-Allow-Origin' : '*',
-          'Access-Control-Allow-Methods' : '*',
-          "Content-Type": 'application/json'
+        function isReferral() {
+            if ($cookies.get('role')) {
+                if ($cookies.get('role') == 'referer') {
+                    return true
+                }
+            }
+            return false;
         }
 
-        return $http({
-          url: url,
-          method: method,
-          withCredentials: true,
-          headers: headers,
-          data: data
-        }).then(function(response) {
-          return response;
-        })
-          .catch(function(response) {
-
-            if (response.status == 401) {
-
-              $rootScope.current_user.authentication_token="";
-              // alert($rootScope.current_user.authentication_token);
-              $state.go('login');
-              swal("Username/password/Sub Domain is wrong. ");
-
+        function isVendor() {
+            if ($cookies.get('role')) {
+                if ($cookies.get('role') == 'vendor') {
+                    return true
+                }
             }
-     if (response.status == 400) {
+            return false;
+        }
 
-      swalert("This response means that server could not understand the request due to invalid syntax.");
-        // alert(response.statusText +  response.data.exception);
-      }
-      if (response.status == 402) {
-      swalert("This response code is reserved for future use. Initial aim for creating this code was using it for digital payment systems however this is not used currently.");
-      }
-      if (response.status == 403) {
-      swalert("Client does not have access rights to the content so server is rejecting to give proper response.");
-      }
-      if (response.status == 404) {
-      swalert("Server can not find requested resource. This response code probably is most famous one due to its frequency to occur in web.");
-      }
-      if (response.status == 405) {
-      swalert("The request method is known by the server but has been disabled and cannot be used. The two mandatory methods, GET and HEAD, must never be disabled and should not return this error code.");
-      }
-      if (response.status == 406) {
-      swalert("This response is sent when the web server, after performing server-driven content negotiation, doesn't find any content following the criteria given by the user agent.");
-      }
-      if (response.status == 407) {
-      swalert("This is similar to 401 but authentication is needed to be done by a proxy.");
-      }
-      if (response.status == 408) {
-      swalert("The server would like to shut down this unused connection");
-      }
-      if (response.status == 409) {
-      swalert("This response would be sent when a request conflict with current state of server.");
-      }
-      if (response.status == 410) {
-      swalert("This response would be sent when requested content has been deleted from server.");
-      }
-      if (response.status == 411) {
-      swalert("Server rejected the request because the Content-Length header field is not defined and the server requires it.");
-      }
-      if (response.status == 412) {
-      swalert("The client has indicated preconditions in its headers which the server does not meet.");
-      }
-      if (response.status == 422) {
+        function TrackingCode() {
+            if ($cookies.get('TrackingCode')) {
+                return $cookies.get('TrackingCode');
+            }
+            return null;
+        }
 
-        return response;
+        function SetTrackingCode(code) {
+            $cookies.put('TrackingCode', code);
+        }
+
+        function authToken() {
+            if ($cookies.get('token')) {
+                return $cookies.get('token');
+            }
+            return false;
+        }
+
+        function getCityCookie() {
+            if ($cookies.get('city')) {
+                return $cookies.get('city');
+            }
+            return false;
+        }
+
+
+
+        function getCityCookieName() {
+            if ($cookies.get('city_name')) {
+                return $cookies.get('city_name');
+            }
+            return 'Chennai';
+        }
+
+        function cityCookie(id,name) {
+            $cookies.put('city', id);
+            $cookies.put('city_name', name);
+            window.location.reload();
+        }
+
+
+
+        function getProfileInfo(callback) {
+            $http.get(apiBaseURL + 'profile').then(function(response) {
+                var response = response.data.data;
+                // login successful if there's a token in the response
+                if (response.attributes) {
+                    callback(response.attributes);
+                } else {
+                    // execute callback with false to indicate failed login
+                    callback(false);
+                }
+            });
+        }
+
+        function VendorCreate(vendor, callback) {
+            $http.post(apiBaseURL + 'registration', {
+                "registration": vendor
+            }).then(function(response) {
+                var response = response.data.data;
+                // login successful if there's a token in the response
+                if (response.attributes) {
+                    callback(response.attributes);
+                } else {
+
+
      
 
-      swalert("These data's are used.pls change your data's.");
-      }
-      if (response.status == 500) {
-      swalert("The server has encountered a situation it doesn't know how to handle. Contact Support");
-      }
-      if (response.status == 501) {
-      swalert("The request method is not supported by the server and cannot be handled.");
-      }
-      if (response.status == 502) {
-      swalert("The server, while working as a gateway to get a response needed to handle the request, got an invalid response.");
-      }
-      if (response.status == 503) {
-      swalert("Common causes are a server that is down for maintenance or that is overloaded. ");
-      }
-      if (response.status == 504) {
-      swalert("This error response is given when the server is acting as a gateway and cannot get a response in time.");
-      }
-      if (response.status == 505) {
-      swalert("The HTTP version used in the request is not supported by the server.");
-      }
-      if (response.status == 506) {
-      swalert("The server has an internal configuration error: transparent content negotiation for the request results in a circular reference.");
-      }
-      if (response.status == 507) {
-      swalert("The server has an internal configuration error");
-      }
-      if (response.status == 511) {
-      swalert("lient needs to authenticate to gain network access.");
-      }
-      if (response.statusTest == "Unauthorized"){
-        return response;
-      }
-      
 
-            $timeout(function() {
-              $rootScope.GuestAjaxFailed = false;
-            }, 3000);
-          }).finally(function() {
-            // // console.log("Completed GuestAjax");
-          });
-      };
-    });
-
-  angular
-    .module('angular-app')
-    .service("UserAjax", function($http, $state, $rootScope, $timeout){
-
-      function swalert(errorresponse)
-    {
-      swal({
-      title: "error",
-      text: errorresponse,
-      width: 400,
-      height: 200,
-      type: "", //success,error
-      timer: 3000,
-      showConfirmButton: false
-    })
-    }
-
-    function swalert_for_not_authorised(errorresponse, title)
-    {
-      swal({
-      title: title,
-      text: errorresponse,
-      width: 400,
-      height: 200,
-      type: "", //success,error
-      confirmButtonText: "Okay..!",
-      closeOnConfirm: false},
-      function() {
-        window.history.back();
-        swal.close();
-      });
-
-    }
-
-      this.request = function(method, endpoint, data){
-
-         var host = 'https://stagingapi.spini.co/v1/';
-        // var host = 'http://freshgrc-production3193.cloudapp.net';
-        // var apiPath = '/api/v1';
-        var url = host + endpoint;
-        var headers = {
-          // "Accept": "application/json",
-          // 'Access-Control-Allow-Origin' : '*',
-          // 'Access-Control-Allow-Methods' : '*',
-          // 'Access-Control-Allow-Headers' : 'Content-Type',
-          "Content-Type": 'application/json',
-          // 'Access-Token' : $rootScope.current_user.authentication_token
-           'Authorization' : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjI3fQ.-vu4hddMCmT33Z8C8LvOI-Eup6LpCAe88c97AzIwtN4"
-          // 'Access-Token' : "$2a$10$Z1QJ46AB.9Qx/IDCIWqnTO20HogZNyOl7ztRDwqzl75nFaCbORNSW",
-        }
-        debugger
-        return $http({
-          url: url,
-          method: method,
-          // withCredentials: true,
-          headers: headers,
-          data: data
-        }).then(function(response) {
-          return response;
-          if (response.status == 422) {
-            $mdToast.show(
-              $mdToast.simple()
-              .content('You have errors in your submission.')
-              .position('top right')
-              .hideDelay(2000)
-            );
-          }
-          return response;
-
-
-        })
-          .catch(function(response) {
-            // if (response.status == 401) {
-
-//               if ($rootScope.current_user.authentication_token != undefined) {
-//                 $state.go($state.previous);
-//                swalert_for_not_authorised("Authorisation is needed to get requested response.", "Not Authorised");
-//               }
-//               else {
-//                 $state.go('login');
-//               }
-
-            // }
-      if (response.status == 401) {
-        // $state.go('home.dashboard');
-           //$state.go('login');
-        // $state.go($state.current, {}, {reload: true});
-        // alert($rootScope.current_user.authentication_token);
-        swal("No Privilege.");
-      }
-     if (response.status == 400) {
-      swalert("This response means that server could not understand the request due to invalid syntax.");
-        // alert(response.statusText +  response.data.exception);
-      }
-      if (response.status == 402) {
-      swalert("This response code is reserved for future use. Initial aim for creating this code was using it for digital payment systems however this is not used currently.");
-      }
-      if (response.status == 403) {
-      swalert("Client does not have access rights to the content so server is rejecting to give proper response.");
-      }
-      if (response.status == 404) {
-      swalert("Server can not find requested resource. This response code probably is most famous one due to its frequency to occur in web.");
-      }
-      if (response.status == 405) {
-      swalert("The request method is known by the server but has been disabled and cannot be used. The two mandatory methods, GET and HEAD, must never be disabled and should not return this error code.");
-      }
-      if (response.status == 406) {
-      swalert("This response is sent when the web server, after performing server-driven content negotiation, doesn't find any content following the criteria given by the user agent.");
-      }
-      if (response.status == 407) {
-      swalert("This is similar to 401 but authentication is needed to be done by a proxy.");
-      }
-      if (response.status == 408) {
-      swalert("The server would like to shut down this unused connection");
-      }
-      if (response.status == 409) {
-      swalert("This response would be sent when a request conflict with current state of server.");
-      }
-      if (response.status == 410) {
-      swalert("This response would be sent when requested content has been deleted from server.");
-      }
-      if (response.status == 411) {
-      swalert("Server rejected the request because the Content-Length header field is not defined and the server requires it.");
-      }
-      if (response.status == 412) {
-      swalert("The client has indicated preconditions in its headers which the server does not meet.");
-      }
-      if (response.status == 500) {
-      swalert("The server has encountered a situation it doesn't know how to handle");
-      }
-      if (response.status == 501) {
-      swalert("The request method is not supported by the server and cannot be handled.");
-      }
-      if (response.status == 502) {
-      swalert("The server, while working as a gateway to get a response needed to handle the request, got an invalid response.");
-      }
-      if (response.status == 503) {
-      swalert("Common causes are a server that is down for maintenance or that is overloaded. ");
-      }
-      if (response.status == 504) {
-      swalert("This error response is given when the server is acting as a gateway and cannot get a response in time.");
-      }
-      if (response.status == 505) {
-      swalert("The HTTP version used in the request is not supported by the server.");
-      }
-      if (response.status == 506) {
-      swalert("The server has an internal configuration error: transparent content negotiation for the request results in a circular reference.");
-      }
-      if (response.status == 507) {
-      swalert("The server has an internal configuration error");
-      }
-      if (response.status == 511) {
-      swalert("lient needs to authenticate to gain network access.");
-      }
-
-
-            $timeout(function() {
-              $rootScope.UserAjaxFailed = false;
-            }, 3000);
-          }).finally(function() {
-          });
-      };
-    });
-
-  angular
-    .module('angular-app')
-    .service("UserAjaxWithFile", function($http, $state, $rootScope, $timeout, Upload){
-      this.request = function(method, endpoint, data){
-        var host = 'http://localhost:3000';
-        // var host = 'http://freshgrc-production3193.cloudapp.net';
-
-        var apiPath = '/api/v1';
-        var url = host + apiPath + endpoint;
-        var headers = {
-          'Access-Token' : $rootScope.current_user.authentication_token
+                    // execute callback with false to indicate failed login
+                    callback(false);
+                }
+            }).catch(function(response) {
+                            ngToast.dismiss();
+                            ngToast.create({
+                                content: response.data.errors[0].detail,
+                                dismissOnTimeout: false,
+                                dismissButton: true,
+                                dismissOnClick: false
+                            });
+                        });
         }
 
-        return Upload.upload({
-        url: url,
-        data: data,
-        headers: headers
-        }).then(function (response) {
-          return response;
-        });
-
-
-      };
-    });
-
-    angular
-    .module('angular-app')
-    .service("UsersigninAjax", function($http, $state, $rootScope, $timeout){
-
-    function swalert(errorresponse)
-    {
-      swal({
-     // title: "Success!",
-      text: errorresponse,
-      width: 400,
-      height: 200,
-      type: "", //success,error
-      timer: 3000,
-      showConfirmButton: false
-    })
-    }
-
-      this.request = function(method, endpoint, data){
-
-        var host = 'http://localhost:3000';
-        // var host = 'http://freshgrc-production3193.cloudapp.net';
-        var apiPath = '/api/v1';
-        var url = host + apiPath + endpoint;
-        var headers = {
-          "Accept": "application/json",
-          'Access-Control-Allow-Origin' : '*',
-          'Access-Control-Allow-Methods' : '*',
-          "Content-Type": 'application/json'
+        function VendorAuth(loginAuth, callback) {
+            $http.post(apiBaseURL + 'user_token', {
+                "auth": loginAuth
+            }).then(function(response) {
+                console.log(response);
+                var response = response.data;
+                // login successful if there's a token in the response
+                if (response.jwt) {
+                    // store username and token in cookies storage to keep user logged in between page refreshes
+                    $cookies.put('role', 'vendor');
+                    // $cookies.put('name', response.name);
+                    $cookies.put('token', response.jwt);
+                    if (response.mobile) {
+                        $cookies.put('mobile', response.mobile);
+                    }
+                    // add jwt token to auth header for all requests made by the $http service
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.jwt;
+                    // execute callback with true to indicate successful login
+                    callback(true);
+                } else {
+                    // execute callback with false to indicate failed login
+                    callback(false);
+                }
+            });
         }
 
-        return $http({
-          url: url,
-          method: method,
-          withCredentials: true,
-          headers: headers,
-          data: data
-        }).then(function(response) {
-          return response;
-        })
-          .catch(function(response) {
+        function UpdateSocialShare(url, tracking_code, media_type, offer_id, callback) {
+            $http.post(apiBaseURL + 'offer_shares',
 
-            if (response.status == 401) {
+{
+            "offer_share" : {
+                "shared_url": url,
+                "offer_id": offer_id,
+                "tracking_code": this.TrackingCode(),
+                "shared_tracking_code": tracking_code,
+                "social_media": media_type,
+                "ip_address": document.getElementById("ip").value
+            }}).then(function(response) {
+                var response = response.data.data;
+                // login successful if there's a token in the response
+                if (response.attributes) {
+                    callback(response.attributes);
+                } else {
+                    // execute callback with false to indicate failed login
+                    callback(false);
+                }
+            });
+        }
 
-              return response;
-
+        function offersClickTrack(offer_id, callback) {
+            var temp_cookie = 'OfferClickcode_' + offer_id;
+            if ($cookies.get(temp_cookie)) {
+                return;
             }
-     if (response.status == 400) {
-
-      swalert("This response means that server could not understand the request due to invalid syntax.");
-        // alert(response.statusText +  response.data.exception);
-      }
-      if (response.status == 402) {
-      swalert("This response code is reserved for future use. Initial aim for creating this code was using it for digital payment systems however this is not used currently.");
-      }
-      if (response.status == 403) {
-      swalert("Client does not have access rights to the content so server is rejecting to give proper response.");
-      }
-      if (response.status == 404) {
-      swalert("Server can not find requested resource. This response code probably is most famous one due to its frequency to occur in web.");
-      }
-      if (response.status == 405) {
-      swalert("The request method is known by the server but has been disabled and cannot be used. The two mandatory methods, GET and HEAD, must never be disabled and should not return this error code.");
-      }
-      if (response.status == 406) {
-      swalert("This response is sent when the web server, after performing server-driven content negotiation, doesn't find any content following the criteria given by the user agent.");
-      }
-      if (response.status == 407) {
-      swalert("This is similar to 401 but authentication is needed to be done by a proxy.");
-      }
-      if (response.status == 408) {
-      swalert("The server would like to shut down this unused connection");
-      }
-      if (response.status == 409) {
-      swalert("This response would be sent when a request conflict with current state of server.");
-      }
-      if (response.status == 410) {
-      swalert("This response would be sent when requested content has been deleted from server.");
-      }
-      if (response.status == 411) {
-      swalert("Server rejected the request because the Content-Length header field is not defined and the server requires it.");
-      }
-      if (response.status == 412) {
-      swalert("The client has indicated preconditions in its headers which the server does not meet.");
-      }
-      if (response.status == 422) {
-        // return response;
-
-      swalert("These data's are used.pls change your data's.");
-      }
-      if (response.status == 500) {
-      swalert("The server has encountered a situation it doesn't know how to handle. Contact Support");
-      }
-      if (response.status == 501) {
-      swalert("The request method is not supported by the server and cannot be handled.");
-      }
-      if (response.status == 502) {
-      swalert("The server, while working as a gateway to get a response needed to handle the request, got an invalid response.");
-      }
-      if (response.status == 503) {
-      swalert("Common causes are a server that is down for maintenance or that is overloaded. ");
-      }
-      if (response.status == 504) {
-      swalert("This error response is given when the server is acting as a gateway and cannot get a response in time.");
-      }
-      if (response.status == 505) {
-      swalert("The HTTP version used in the request is not supported by the server.");
-      }
-      if (response.status == 506) {
-      swalert("The server has an internal configuration error: transparent content negotiation for the request results in a circular reference.");
-      }
-      if (response.status == 507) {
-      swalert("The server has an internal configuration error");
-      }
-      if (response.status == 511) {
-      swalert("lient needs to authenticate to gain network access.");
-      }
-      if (response.statusTest == "Unauthorized"){
-        return response;
-      }
-      
-
-            $timeout(function() {
-              $rootScope.GuestAjaxFailed = false;
-            }, 3000);
-          }).finally(function() {
-            // // console.log("Completed GuestAjax");
-          });
-      };
-    });
-
-
-    angular
-    .module('angular-app')
-    .service("UserAjaxWithPDF", function($http, $state, $rootScope, $timeout){
-
-      function swalert(errorresponse)
-    {
-      swal({
-      title: "error",
-      text: errorresponse,
-      width: 400,
-      height: 200,
-      type: "", //success,error
-      timer: 3000,
-      showConfirmButton: false
-    })
-    }
-
-    function swalert_for_not_authorised(errorresponse, title)
-    {
-      swal({
-      title: title,
-      text: errorresponse,
-      width: 400,
-      height: 200,
-      type: "", //success,error
-      confirmButtonText: "Okay..!",
-      closeOnConfirm: false},
-      function() {
-        window.history.back();
-        swal.close();
-      });
-
-    }
-
-      this.request = function(method, endpoint, data){
-
-         var host = 'http://localhost:3000';
-        // var host = 'http://freshgrc-production3193.cloudapp.net';
-        var apiPath = '/api/v1';
-        var url = host + apiPath + endpoint;
-        var headers = {
-          'Access-Token' : $rootScope.current_user.authentication_token,
-          'Accept' : 'application/pdf'
+            $http.post(apiBaseURL + 'offer_clicks', {
+                "offer_click": {
+                    "offer_id": offer_id,
+                    "ip_address": document.getElementById("ip").value,
+                    "tracking_code": this.TrackingCode()
+                }
+            }).then(function(response) {
+                var response = response.data.data;
+                // login successful if there's a token in the response
+                if (response.attributes) {
+                    $cookies.put(temp_cookie, temp_cookie);
+                    callback(true);
+                } else {
+                    // execute callback with false to indicate failed login
+                    callback(false);
+                }
+            });
         }
-        return $http({
-          url: url,
-          method: method,
-          withCredentials: true,
-          headers: headers,
-          data: data,
-          responseType: 'arraybuffer'
-        }).then(function(response) {
 
-          if (response.status == 422) {
-            $mdToast.show(
-              $mdToast.simple()
-              .content('You have errors in your submission.')
-              .position('top right')
-              .hideDelay(2000)
-            );
-          }
-          return response;
+        function offersViewTrack(callback) {
+            var temp_cookie = 'code_' + document.getElementById("offer_id").value;
+            if ($cookies.get(temp_cookie)) {
+                return;
+            }
+            $http.post(apiBaseURL + 'page_visits', {
+                "page_visit": {
+                    "url": window.location.href.replace('#!/', ''),
+                    "offer_id": document.getElementById("offer_id").value,
+                    "ip_address": document.getElementById("ip").value,
+                    "tracking_code": document.getElementById("tracking_code").value
+                }
+            }).then(function(response) {
+                var response = response.data.data;
+                $cookies.put(temp_cookie, temp_cookie);
+                // login successful if there's a token in the response
+                if (response.attributes) {
+                    callback(true);
+                } else {
+                    // execute callback with false to indicate failed login
+                    callback(false);
+                }
+            });
+        }
 
+        function getVendorProfileInfo(callback) {
+            $http.get(apiBaseURL + 'profile').then(function(response) {
+                var response = response.data.data;
+                // login successful if there's a token in the response
+                if (response.attributes) {
+                    callback(response.attributes);
+                } else {
+                    // execute callback with false to indicate failed login
+                    callback(false);
+                }
+            });
+        }
 
-        })
-          .catch(function(response) {
-            // if (response.status == 401) {
+        function getVendorDataList(callback) {
+            $http.get(apiBaseURL + 'profile').then(function(response) {
+                var response = response.data.data;
+                // login successful if there's a token in the response
+                if (response.attributes) {
+                    callback(response.attributes);
+                } else {
+                    // execute callback with false to indicate failed login
+                    callback(false);
+                }
+            });
+        }
 
-//               if ($rootScope.current_user.authentication_token != undefined) {
-//                 $state.go($state.previous);
-//                swalert_for_not_authorised("Authorisation is needed to get requested response.", "Not Authorised");
-//               }
-//               else {
-//                 $state.go('login');
-//               }
+        function getCityDataList(callback) {
 
-            // }
-      if (response.status == 401) {
-        // $state.go('home.dashboard');
-           //$state.go('login');
-        // $state.go($state.current, {}, {reload: true});
-        // alert($rootScope.current_user.authentication_token);
-        swal("No Privilege.");
-      }
-     if (response.status == 400) {
-      swalert("This response means that server could not understand the request due to invalid syntax.");
-        // alert(response.statusText +  response.data.exception);
-      }
-      if (response.status == 402) {
-      swalert("This response code is reserved for future use. Initial aim for creating this code was using it for digital payment systems however this is not used currently.");
-      }
-      if (response.status == 403) {
-      swalert("Client does not have access rights to the content so server is rejecting to give proper response.");
-      }
-      if (response.status == 404) {
-      swalert("Server can not find requested resource. This response code probably is most famous one due to its frequency to occur in web.");
-      }
-      if (response.status == 405) {
-      swalert("The request method is known by the server but has been disabled and cannot be used. The two mandatory methods, GET and HEAD, must never be disabled and should not return this error code.");
-      }
-      if (response.status == 406) {
-      swalert("This response is sent when the web server, after performing server-driven content negotiation, doesn't find any content following the criteria given by the user agent.");
-      }
-      if (response.status == 407) {
-      swalert("This is similar to 401 but authentication is needed to be done by a proxy.");
-      }
-      if (response.status == 408) {
-      swalert("The server would like to shut down this unused connection");
-      }
-      if (response.status == 409) {
-      swalert("This response would be sent when a request conflict with current state of server.");
-      }
-      if (response.status == 410) {
-      swalert("This response would be sent when requested content has been deleted from server.");
-      }
-      if (response.status == 411) {
-      swalert("Server rejected the request because the Content-Length header field is not defined and the server requires it.");
-      }
-      if (response.status == 412) {
-      swalert("The client has indicated preconditions in its headers which the server does not meet.");
-      }
-      if (response.status == 500) {
-      swalert("The server has encountered a situation it doesn't know how to handle");
-      }
-      if (response.status == 501) {
-      swalert("The request method is not supported by the server and cannot be handled.");
-      }
-      if (response.status == 502) {
-      swalert("The server, while working as a gateway to get a response needed to handle the request, got an invalid response.");
-      }
-      if (response.status == 503) {
-      swalert("Common causes are a server that is down for maintenance or that is overloaded. ");
-      }
-      if (response.status == 504) {
-      swalert("This error response is given when the server is acting as a gateway and cannot get a response in time.");
-      }
-      if (response.status == 505) {
-      swalert("The HTTP version used in the request is not supported by the server.");
-      }
-      if (response.status == 506) {
-      swalert("The server has an internal configuration error: transparent content negotiation for the request results in a circular reference.");
-      }
-      if (response.status == 507) {
-      swalert("The server has an internal configuration error");
-      }
-      if (response.status == 511) {
-      swalert("lient needs to authenticate to gain network access.");
-      }
+            var url = apiBaseURL;
+            // var url = 'https://stagingapi.spini.co/v1/';
 
-
-            $timeout(function() {
-              $rootScope.UserAjaxFailed = false;
-            }, 3000);
-          }).finally(function() {
-          });
-      };
-    });
+        
+            
+            $http.get(url + 'locations').then(function(response) {
+                var response = response.data.data;
+                // login successful if there's a token in the response
+                if (response.attributes) {
+                    callback(response.attributes);
+                } else {
+                    // execute callback with false to indicate failed login
+                    callback(false);
+                }
+            });
+        }
 
 
 
+        function checkOfferCookie(auth, callback) {}
 
+        function Login(auth, callback) {
+            auth.tracking_code = this.TrackingCode();
+            $http.post(apiBaseURL + 'facebook_user_token', {
+                auth: auth
+            }).then(function(response) {
+                var response = response.data;
+                // login successful if there's a token in the response
+                if (response.jwt) {
+                    // store username and token in cookies storage to keep user logged in between page refreshes
+                    $cookies.put('role', response.role);
+                    $cookies.put('name', response.name);
+                    $cookies.put('token', response.jwt);
+                    if (response.mobile) {
+                        $cookies.put('mobile', response.mobile);
+                    }
+                    // add jwt token to auth header for all requests made by the $http service
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.jwt;
+                    // execute callback with true to indicate successful login
+                    callback(response.role);
+                } else {
+                    // execute callback with false to indicate failed login
+                    callback(false);
+                }
+            });
+        }
 
+        function Logout() {
+            $cookies.remove('role');
+            $cookies.remove('name');
+            $cookies.remove('token');
+            $cookies.remove('mobile');
+            $http.defaults.headers.common.Authorization = '';
+            window.location = window.location.origin;
+        }
+    };
 
+    function SocialLoginService($q, $rootScope, $window) {
+        return {
+            facebookGetMyLastName: function() {
+                var deferred = $q.defer();
+                FB.api('/me', {
+                    fields: 'last_name'
+                }, function(response) {
+                    if (!response || response.error) {
+                        deferred.reject('Error occured');
+                    } else {
+                        deferred.resolve(response);
+                    }
+                });
+                return deferred.promise;
+            },
+            facebookGetUserInfo: function() {
+                var _self = this;
+                FB.api('/me', {
+                    fields: 'email'
+                }, function(res) {
+                    $rootScope.$apply(function() {
+                        console.log(res);
+                        $rootScope.user = _self.user = res;
+                    });
+                });
+            },
+            googleCallBack: function(res) {
+                $rootScope.$broadcast("GoogleLoginComplete", {
+                    "authData": res
+                });
+            },
+            googleLogin: function() {
+                var myParams = {
+                    'clientid': '405658344932-5ot4r5m9vs424c8b4j6htt3dg1p8qfpd.apps.googleusercontent.com', //You need to set client id
+                    'cookiepolicy': 'single_host_origin',
+                    'callback': this.googleCallBack, //callback function
+                    'approvalprompt': 'force',
+                    'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
+                };
+                gapi.auth.signIn(myParams);
+            },
+            vendorFacebookLogin: function() {
+                var _self = this;
+                FB.init({
+                    appId: '1745197009116134',
+                    status: true,
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v2.4'
+                });
+                FB.login(function(response) {
+                    console.log(response);
+                    if (response.status === 'connected') {
+                        facebookLogin
+                        $rootScope.$broadcast("FBLoginCompleteVendor", {
+                            "authData": response
+                        });
+                    } else if (response.status === 'not_authorized') {} else {}
+                }, {
+                    scope: 'email,public_profile,user_address, user_mobile_phone' // to make sure the email access from fb
+                });
+            },
+            facebookLogin: function() {
+                var _self = this;
+                FB.init({
+                    appId: '1745197009116134',
+                    status: true,
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v2.4'
+                });
+                FB.login(function(response) {
+                    if (response.status === 'connected') {
+                        $rootScope.$broadcast("FBLoginComplete", {
+                            "authData": response
+                        });
+                    } else if (response.status === 'not_authorized') {} else {
+                        // the user isn't logged in to Facebook.
+                    }
+                }, {
+                    scope: 'email,public_profile,user_address, user_mobile_phone' // to make sure the email access from fb
+                });
+            }
+        };
+    };
+})();;(function() {
+    'use strict';
+    /**
+     * @ngdoc function
+     * @name app.service:homeService
+     * @description
+     * # homeService
+     * Service of the app
+     */
+    angular.module('redeemcoupon').service('redeemcouponService', redeemcouponService);
+    redeemcouponService.$inject = ['$http', 'UserAjax', 'CommonService'];
 
+    function redeemcouponService($http) {
+        this.VendorCreate = function(data) {
+            return UserAjax.request('POST', '/registration', data).then(function(response) {
+                return response;
+            });
+        };
+        this.VendorAuth = function(data) {
+            return UserAjax.request('POST', '/user_token', data).then(function(response) {
+                return response;
+            });
+        };
 
+        // function VendorAuth(loginAuth, callback) {
+        //     $http.post(apiBaseURL + 'user_token', {
+        //         "auth": loginAuth
+        //     }).then(function(response) {
+        //         console.log(response);
+        //         var response = response.data;
+        //         // login successful if there's a token in the response
+        //         if (response.jwt) {
+        //             // store username and token in cookies storage to keep user logged in between page refreshes
+        //             $cookies.put('role', 'vendor');
+        //             // $cookies.put('name', response.name);
+        //             $cookies.put('token', response.jwt);
+        //             if (response.mobile) {
+        //                 $cookies.put('mobile', response.mobile);
+        //             }
+        //             // add jwt token to auth header for all requests made by the $http service
+        //             $http.defaults.headers.common.Authorization = 'Bearer ' + response.jwt;
+        //             // execute callback with true to indicate successful login
+        //             callback(true);
+        //         } else {
+        //             // execute callback with false to indicate failed login
+        //             callback(false);
+        //         }
+        //     });
+        // }
+    }
+})();
+;(function () {
+	'use strict';
 
+	/**
+	* @ngdoc function
+	* @name app.service:homeService
+	* @description
+	* # homeService
+	* Service of the app
+	*/
 
+	angular.module('refferal')
+		.service('refferalService', refferalService);
+
+	refferalService.$inject = ['$http'];
+
+	function refferalService($http) {
+
+		var list = [
+			{"feature": "Implemented Best Practices, following: John Papa's Guide"},
+			{"feature": "Using Controller AS syntax"},
+			{"feature": "Wrap Angular components in an Immediately Invoked Function Expression (IIFE)"},
+			{"feature": "Declare modules without a variable using the setter syntax"},
+			{"feature": "Using named functions"},
+			{"feature": "Including Unit test with Karma"},
+			{"feature": "Including UI options for Bootstrap or Angular-Material"},
+			{"feature": "Including Angular-Material-Icons for Angular-Material UI"},
+			{"feature": "Dynamic Menu generator for both themes"},
+			{"feature": "Grunt task for Production and Development"}
+		];
+
+		return {
+			getFeaturesList: getFeaturesList
+		};
+
+		function getFeaturesList() {
+			return list;
+		}
+
+	}
 
 })();
 ;(function () {
@@ -1343,14 +1723,251 @@ angular.module('angular-app')
 	* Service of the app
 	*/
 
-	angular.module('angular-app')
-	.service('CommonService',function($http, UserAjax){
-			
-  		
-				
-		});		
-})();
+	angular.module('signupModule')
+		.service('signupService', signupService);
 
+	signupService.$inject = ['$http'];
+
+	function signupService($http) {
+
+		var list = [
+			{"feature": "Implemented Best Practices, following: John Papa's Guide"},
+			{"feature": "Using Controller AS syntax"},
+			{"feature": "Wrap Angular components in an Immediately Invoked Function Expression (IIFE)"},
+			{"feature": "Declare modules without a variable using the setter syntax"},
+			{"feature": "Using named functions"},
+			{"feature": "Including Unit test with Karma"},
+			{"feature": "Including UI options for Bootstrap or Angular-Material"},
+			{"feature": "Including Angular-Material-Icons for Angular-Material UI"},
+			{"feature": "Dynamic Menu generator for both themes"},
+			{"feature": "Grunt task for Production and Development"}
+		];
+
+		return {
+			getFeaturesList: getFeaturesList
+		};
+
+		function getFeaturesList() {
+			return list;
+		}
+		// this.checkAuth =  function (params) {
+	 //    return GuestAjax.request('POST', '/sessions/login', params).then(function (response) {
+	    	
+	 //      return response;
+	 //    });
+  // 	};
+
+  // 	this.setCredentials =  function (current_user) {
+	 //    $cookies.put('current_user', JSON.stringify(current_user));
+  //     $rootScope.current_user = JSON.parse($cookies.get('current_user'));
+  // 	};
+		
+
+	}
+
+})();
+;(function() {
+    'use strict';
+    /**
+     * @ngdoc function
+     * @name app.service:UserAjax
+     * @description
+     * # UserAjax
+     * Service of the app
+     */
+    angular.module('angular-app').service("UserAjax", function($http, $state, $rootScope, $timeout) {
+        this.request = function(method, endpoint, data) {
+            var host = 'https://stagingapi.spini.co/v1/';
+            var url = host + endpoint;
+            var headers = {
+                // "Accept": "application/json",
+                // 'Access-Control-Allow-Origin' : '*',
+                // 'Access-Control-Allow-Methods' : '*',
+                // 'Access-Control-Allow-Headers' : 'Content-Type',
+                "Content-Type": 'application/json',
+                // 'Access-Token' : $rootScope.current_user.authentication_token
+                'Authorization': "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjI3fQ.-vu4hddMCmT33Z8C8LvOI-Eup6LpCAe88c97AzIwtN4"
+                // 'Access-Token' : "$2a$10$Z1QJ46AB.9Qx/IDCIWqnTO20HogZNyOl7ztRDwqzl75nFaCbORNSW",
+            }
+            return $http({
+                url: url,
+                method: method,
+                headers: headers,
+                data: data
+            }).then(function(response) {
+                return response;
+            }).catch(function(response) {
+                $timeout(function() {
+                    $rootScope.UserAjaxFailed = false;
+                }, 3000);
+            }).finally(function() {});
+        };
+    });
+});
+;(function() {
+    'use strict';
+    /**
+     * @ngdoc function
+     * @name app.service:CommonService
+     * @description
+     * # CommonService
+     * Service of the app
+     */
+    angular.module('angular-app').service('commonService', function($http, UserAjax, homeService) {
+        this.isReferral = function() {
+            if ($cookies.get('role')) {
+                if ($cookies.get('role') == 'referer') {
+                    return true
+                }
+            }
+            return false;
+        }
+        this.isVendor = function() {
+            if ($cookies.get('role')) {
+                if ($cookies.get('role') == 'vendor') {
+                    return true
+                }
+            }
+            return false;
+        }
+        this.trackingCode = function() {
+            if ($cookies.get('trackingCode')) {
+                return $cookies.get('trackingCode');
+            }
+            return null;
+        }
+        this.setTrackingCode = function(code) {
+            $cookies.put('trackingCode', code);
+        }
+        this.authToken = function() {
+            if ($cookies.get('token')) {
+                return $cookies.get('token');
+            }
+            return false;
+        }
+        this.getCityCookie = function() {
+            if ($cookies.get('city')) {
+                return $cookies.get('city');
+            }
+            return false;
+        }
+        this.getCityCookieName = function() {
+            if ($cookies.get('city_name')) {
+                return $cookies.get('city_name');
+            }
+            return null;
+        }
+        this.cityCookie = function(id, name) {
+            $cookies.put('city', id);
+            $cookies.put('city_name', name);
+            window.location.reload(); // reload the page after cookie set
+        }
+        this.ipAddress = function() {
+            return document.getElementById("ip").value || null;
+        }
+        this.logout = function() {
+            $cookies.remove('role');
+            $cookies.remove('name');
+            $cookies.remove('token');
+            $cookies.remove('mobile');
+            window.location = window.location.origin; // go to the home page
+        }
+        this.showMessage = function(title, desc) {
+            //	ngToast.dismiss();
+            // ngToast.create({
+            //     content: response.data.errors[0].detail,
+            //     dismissOnTimeout: false,
+            //     dismissButton: true,
+            //     dismissOnClick: false
+            // });
+        }
+    });
+})();
+;(function() {
+    'use strict';
+    /**
+     * @ngdoc function
+     * @name app.service:offerService
+     * @description
+     * # offerService
+     * Service of the app
+     */
+    angular.module('angular-app').service('offerService', function($http, UserAjax, homeService, commonService) {
+        this.offersClickTrack = function(offer_id) {
+            var temp_cookie = 'OfferClickcode_' + offer_id;
+            if ($cookies.get(temp_cookie)) {
+                return;
+            }
+            var data = {
+                "offer_click": {
+                    "offer_id": offer_id,
+                    "ip_address": commonService.ipAddress(),
+                    "tracking_code": commonService.trackingCode()
+                }
+            };
+            offerService.offerClickTrack(data).then(function(response) {
+                var response = response.data.data;
+                if (response.attributes) {
+                    $cookies.put(temp_cookie, temp_cookie);
+                }
+            });
+        };
+        this.offersViewTrack = function() {
+            var temp_cookie = 'code_' + document.getElementById("offer_id").value;
+            if ($cookies.get(temp_cookie)) {
+                return;
+            }
+            var data = {
+                "page_visit": {
+                    "url": window.location.href.replace('#!/', ''),
+                    "offer_id": document.getElementById("offer_id").value,
+                    "ip_address": document.getElementById("ip").value,
+                    "tracking_code": document.getElementById("tracking_code").value
+                }
+            };
+            offerService.offerView(data).then(function(response) {
+                var response = response.data.data;
+                if (response.attributes) {
+                    $cookies.put(temp_cookie, temp_cookie);
+                }
+            })
+        };
+        this.UpdateSocialShare = function(url, tracking_code, media_type, offer_id) {
+            var data = {
+                "offer_share": {
+                    "shared_url": url,
+                    "offer_id": offer_id,
+                    "tracking_code": commonService.trackingCode(),
+                    "shared_tracking_code": tracking_code,
+                    "social_media": media_type,
+                    "ip_address": commonService.ipAddress()
+                }
+            };
+            this.offerShare(data).then(function(response) {
+                var response = response.data.data;
+                if (response.attributes) {
+                    response.attributes;
+                } else {}
+            });
+        };
+        this.offerClickTrack = function(data) {
+            return UserAjax.request('POST', '/offer_clicks', data).then(function(response) {
+                return response.data;
+            });
+        };
+        this.offerShare = function(data) {
+            return UserAjax.request('POST', '/offer_shares', data).then(function(response) {
+                return response.data;
+            });
+        };
+        this.offerView = function(data) {
+            return UserAjax.request('POST', '/page_visits', data).then(function(response) {
+                return response.data;
+            });
+        };
+    })
+})
+();
 ;(function () {
 	'use strict';
 
@@ -1408,3 +2025,143 @@ angular.module('angular-app')
 	}
 
 })();
+;angular.module('ReferYogi').run(['$templateCache', function($templateCache) {
+  'use strict';
+
+  $templateCache.put('app/modules/home/home.html',
+    "\n" +
+    "<update-title title=\"Home Page\"></update-title>\n" +
+    "<update-meta name=\"description\" content=\"Site Data\"></update-meta>\n" +
+    "<update-title title=\"Home Page\">\n" +
+    "</update-title>\n" +
+    "<update-meta content=\"Site Data\" name=\"description\">\n" +
+    "</update-meta>\n" +
+    "<div class=\"col-md-4 col-sm-6\" ng-repeat=\"offer in vm.offers track by $index \">\n" +
+    "    <div class=\"offer-container\">\n" +
+    "        <a>\n" +
+    "            <img alt=\"offer-image\" ng-click=\"vm.getSlidepopup(offer.attributes.campaign_id)\" ng-src=\"{{offer.attributes.avatar_thumb}}\">\n" +
+    "            </img>\n" +
+    "        </a>\n" +
+    "        <div class=\"offer-details\">\n" +
+    "            <span class=\"grisp\" ng-click=\"vm.getSlidepopup(offer.attributes.campaign_id)\">\n" +
+    "                <button ng-click=\"vm.getSlidepopup(offer.attributes.campaign_id)\">\n" +
+    "                    GET CODE!\n" +
+    "                </button>\n" +
+    "                <h3>\n" +
+    "                    {{offer.attributes.name | limitTo:27}}\n" +
+    "\n" +
+    "                                {{offer.attributes.name.length > 27 ? '...' : ''}}\n" +
+    "                </h3>\n" +
+    "                <div class=\"offer-location\">\n" +
+    "                    <b>\n" +
+    "                        At -\n" +
+    "\n" +
+    "\n" +
+    "          {{offer.attributes.business_name | limitTo:18}}\n" +
+    "\n" +
+    "                                {{offer.attributes.business_name.length > 18 ? '...' : ''}}\n" +
+    "                    </b>\n" +
+    "                    <span>\n" +
+    "                        {{offer.attributes.place | limitTo:10}}\n" +
+    "\n" +
+    "                                {{offer.attributes.place.length > 10 ? '...' : ''}}\n" +
+    "                    </span>\n" +
+    "                </div>\n" +
+    "                <!-- <p>{{offer.attributes.caption | limitTo: 140}} {{offer.attributes.caption.length > 140 ? '...' : ''}}</p> -->\n" +
+    "            </span>\n" +
+    "            <div class=\"offer-share\" style=\"    margin: 0px;\n" +
+    "    padding: 0px;\n" +
+    "    padding-top: 10px;\">\n" +
+    "                <label>\n" +
+    "                    REFER & EARN\n" +
+    "                </label>\n" +
+    "                <ul ng-show=\" vm.isReferral()\">\n" +
+    "                    <li class=\"offer-share-max\">\n" +
+    "                        <a data-clipboard-text=\"{{vm.OfferLink(offer.attributes.seo_url,offer.attributes.tracking_code.general)}}\" data-placement=\"bottom\" ngclipboard=\"\" ngclipboard-success=\"vm.onCopySuccess(e);\" onmouseenter=\"$(this).tooltip('show')\" title=\"Copy link\">\n" +
+    "                        </a>\n" +
+    "                    </li>\n" +
+    "                    <li class=\"offer-share-fb\">\n" +
+    "                        <a ng-click=\"vm.SocialShareUpdate(offer.attributes.seo_url,'facebook')\" socialshare=\"\" socialshare-provider=\"facebook\" socialshare-url=\"{{vm.OfferLink(offer.attributes.seo_url,offer.attributes.tracking_code.facebook)}}\">\n" +
+    "                        </a>\n" +
+    "                    </li>\n" +
+    "                    <li class=\"offer-share-twitter\">\n" +
+    "                        <a href=\"whatsapp://send?text={{vm.SeoHelpSocialShare(offer.id,'copy')}}\">\n" +
+    "                        </a>\n" +
+    "                    </li>\n" +
+    "                    <li class=\"offer-share-twitter hidden-md hidden-lg\" style=\"background: url(share-whatsapp.png) no-repeat;\n" +
+    "    background-size: contain;\">\n" +
+    "                        <a socialshare=\"\" socialshare-provider=\"whatsapp\" socialshare-text=\"{{offer.attributes.caption}}\" socialshare-url=\"{{vm.OfferLink(offer.attributes.seo_url,offer.attributes.tracking_code.general)}}\" style=\"    background: none;\">\n" +
+    "                        </a>\n" +
+    "                    </li>\n" +
+    "                </ul>\n" +
+    "                <ul ng-click=\"vm.signupPOP('referral')\" ng-hide=\" vm.isReferral()\">\n" +
+    "                    <li class=\"offer-share-max\">\n" +
+    "                        <a data-placement=\"bottom\" onmouseenter=\"$(this).tooltip('show')\" title=\"Copy link\">\n" +
+    "                        </a>\n" +
+    "                    </li>\n" +
+    "                    <li class=\"offer-share-fb\">\n" +
+    "                        <a>\n" +
+    "                        </a>\n" +
+    "                    </li>\n" +
+    "                    <li class=\"offer-share-twitter\">\n" +
+    "                        <a>\n" +
+    "                        </a>\n" +
+    "                    </li>\n" +
+    "                </ul>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "        <div class=\"offer-spini-treashure\">\n" +
+    "            <a class=\"hoverable\" href=\"javascript://\">\n" +
+    "                <span class=\"normal\">\n" +
+    "                    <i class=\"fa fa-gift link-icon fagift\">\n" +
+    "                    </i>\n" +
+    "                    MY TREASURE\n" +
+    "                </span>\n" +
+    "                <span class=\"hover\" ng-show=\" {{offer.attributes.treasure_value}}\">\n" +
+    "                    <i class=\"fa fa-gift link-icon fagift\">\n" +
+    "                    </i>\n" +
+    "                    Refer & Earn Upto ₹{{offer.attributes.treasure_value}}!\n" +
+    "                </span>\n" +
+    "                <span class=\"hover\" ng-click=\"vm.signupPOP()\" ng-hide=\" {{offer.attributes.treasure_value}}\">\n" +
+    "                    <i class=\"fa fa-gift link-icon fagift\">\n" +
+    "                    </i>\n" +
+    "                    Become a Yogi to earn the Treasure !\n" +
+    "                </span>\n" +
+    "            </a>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n"
+  );
+
+
+  $templateCache.put('app/modules/layouts/nav-bar/navbar-tpl.html',
+    "<nav class=\"navbar navbar-inverse\">\n" +
+    "	<div class=\"container\">\n" +
+    "		<div class=\"navbar-header\">\n" +
+    "			<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n" +
+    "				<span class=\"sr-only\">Toggle navigation</span>\n" +
+    "				<span class=\"icon-bar\"></span>\n" +
+    "				<span class=\"icon-bar\"></span>\n" +
+    "				<span class=\"icon-bar\"></span>\n" +
+    "			</button>\n" +
+    "			<a class=\"navbar-brand\" href=\"/#!/\">{{ brand }}</a>\n" +
+    "		</div>\n" +
+    "		<div id=\"navbar\" class=\"collapse navbar-collapse\">\n" +
+    "			<ul class=\"nav navbar-nav\">\n" +
+    "				<li ng-repeat=\"item in menus\" ng-class=\"{active:isActive('#/' + item.link)}\">\n" +
+    "					<a ui-sref=\"{{ item.link }}\">{{ item.name }}</a>\n" +
+    "				</li>\n" +
+    "			</ul>\n" +
+    "		</div><!--/.nav-collapse -->\n" +
+    "	</div>\n" +
+    "</nav>\n"
+  );
+
+
+  $templateCache.put('app/modules/layouts/nav-bar/navbar.html',
+    "<div ng-controller=\"NavBarCtrl as vm\">\n" +
+    "    <nav-bar menus=\"vm.menu\" brand=\"vm.title\"></nav-bar>\n" +
+    "</div>\n"
+  );
+
+}]);

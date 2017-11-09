@@ -2,16 +2,14 @@
     'use strict';
     /**
      * @ngdoc function
-     * @name app.service:ajaxService
+     * @name app.service:UserAjax
      * @description
-     * # companiesService
+     * # UserAjax
      * Service of the app
      */
     angular.module('angular-app').service("UserAjax", function($http, $state, $rootScope, $timeout) {
         this.request = function(method, endpoint, data) {
             var host = 'https://stagingapi.spini.co/v1/';
-            // var host = 'http://freshgrc-production3193.cloudapp.net';
-            // var apiPath = '/api/v1';
             var url = host + endpoint;
             var headers = {
                 // "Accept": "application/json",
@@ -26,7 +24,6 @@
             return $http({
                 url: url,
                 method: method,
-                // withCredentials: true,
                 headers: headers,
                 data: data
             }).then(function(response) {
