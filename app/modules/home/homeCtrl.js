@@ -24,7 +24,7 @@
         });
         homeService.getPreloadData().then(function(response) {
             vm.PreloadedData = response.data;
-            vm.locations = vm.PreloadedData.locations;
+
         });
     }
 })();

@@ -7,7 +7,7 @@
      * # homeService
      * Service of the app
      */
-    angular.module('angular-app').service('homeService', function($http, UserAjax) {
+    angular.module('angular-app').service('homeService', function($http,UserAjax) {
         this.getOffer = function() {
             return UserAjax.request('GET', '/home/offers', {}).then(function(response) {
                 return response.data;
@@ -20,3 +20,4 @@
         };
     });
 })();
+
